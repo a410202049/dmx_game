@@ -1,0 +1,20 @@
+{% extends "Common/common.twig" %}
+
+{% block container %}
+<div class="bg">
+    <div class="login_wrap">
+        <div class="login_box">
+            <div class="login-title">堂堂十三水</div>
+            <div class="login-small-title">后台管理系统登录</div>
+            <form class="m-t" role="form" action="{{base_url('admin/Login/do_login')}}"  method="post">
+            <div class="login-input">
+                <input type="text" name="username" id="username" placeholder="请输入账号">
+                <input type="password" name="password" id="password" placeholder="请输入密码">
+                <button class="login-btn" type="submit">登 录</button>
+                <span class="message-tip">{{error_flashdata}}</span>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
