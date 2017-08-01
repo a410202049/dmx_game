@@ -8,6 +8,16 @@ img{border:0;vertical-align:middle}
 table{border-collapse:collapse;border-spacing:0} 
 p{word-wrap:break-word}
 
+.clearfix:after {
+  content: "\0020";
+  display: block;
+  clear: both;
+  height: 0;
+  visibility: hidden; }
+
+.clearfix {
+  *zoom: 1; }
+
 .bg{
 	background-image: url(../img/bg.png);
 	width: 100%;
@@ -98,4 +108,130 @@ p{word-wrap:break-word}
 	width: 100%;
 	margin-top: 10px;
 	/*display: none;*/
+}
+
+.manage_head{
+	height: 40px;
+}
+
+
+.content{
+	width: 100%;
+	height: 100%;
+	display:flex;
+}
+
+.content-left{
+    width:200px; height:100%;
+    flex:none;
+	background: rgba(240,240,240,0.8);
+	
+}
+
+.content-right{
+    height:100%;
+    background:rgba(255,255,255,0.8);
+    flex:1;        /*flex布局*/
+}
+
+.menus{
+	width: 100%;
+	
+	text-align: center;
+	color: #333333;
+	font-size: 14px;
+	font-weight: bold;
+}
+
+.menus ul li {
+	height: 40px;
+	line-height: 40px;
+	cursor: pointer;
+	background: rgba(202,201,201,0.8);
+}
+
+.menus ul li.active{
+	background: rgba(190,190,190,0.8);
+}
+
+.content-right .tabs {
+	margin-top: 20px;
+	margin-left: 50px;
+	border-bottom: 1px solid #cacbcb;
+}
+
+.content-right .tabs ul li{
+	float: left;
+	padding-bottom: 5px;
+	margin-bottom: -1px;
+	margin-right:25px;
+	font-size: 14px;
+	cursor: pointer;
+}
+
+
+.content-right .tabs ul .active{
+	border-bottom: 1px solid #69d0d1;
+}
+
+.input-group{
+	width: 270px;
+	height: 400px;
+	margin-left: 50px;
+	margin-top: 20px;
+	position: relative;
+}
+
+.input-group span{
+	display: block;
+	float: right;
+	margin-bottom: 15px;
+	color: #333333;
+	font-size: 14px;
+}
+
+.input-group span input{
+	padding: 5px 5px;
+	width: 150px;
+}
+
+.manage_head_title{
+	display: inline-block;
+	font-size: 24px;
+	font-weight: bold;
+	color: #fff;
+	padding-left: 50px;
+	line-height: 40px;
+	float: left;
+}
+
+.logout{
+	float: right;
+	margin-right: 50px;
+	line-height: 40px;
+	color: #fff;
+	font-size: 16px;
+	display: inline-block;
+}
+
+.logout a{
+	font-size: 16px;
+	color: #fff;
+	text-decoration: underline;
+}
+
+.recharge{
+	width: 100px;
+	background: #69d0d1;
+	padding: 5px 0;
+	text-align: center;
+	color: #fff;
+	font-weight: bold;
+	font-size: 14px;
+	cursor: pointer;
+	display: block;
+	border:none;
+	float: right;
+	margin-right: 65px;
+	/*margin-left: 88px;*/
 }

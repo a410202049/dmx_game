@@ -6,8 +6,7 @@ class Index extends admin_Auth_Controller {
 	}
 
 	public function index(){
-		echo "1";
-		// $this->twig->render('Index/index');
+		$this->twig->render('Index/index');
 	}
 
 
