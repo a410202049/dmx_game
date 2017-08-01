@@ -179,6 +179,7 @@ p{word-wrap:break-word}
 	height: 400px;
 	margin-left: 50px;
 	margin-top: 20px;
+	position: relative;
 }
 
 .input-group span{
@@ -191,6 +192,7 @@ p{word-wrap:break-word}
 
 .input-group span input{
 	padding: 5px 5px;
+	width: 150px;
 }
 
 .manage_head_title{
@@ -229,5 +231,7 @@ p{word-wrap:break-word}
 	cursor: pointer;
 	display: block;
 	border:none;
-	margin-left: 88px;
+	float: right;
+	margin-right: 65px;
+	/*margin-left: 88px;*/
 }
