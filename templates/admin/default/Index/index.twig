@@ -1,5 +1,58 @@
 {% extends "Common/common.twig" %}
 {% block container %}
+	<div class="bg">
+		<div class="manage_head">
+			<span class="manage_head_title">堂堂十三水充值系统</span>
+			<span class="logout">你好，admin <a href="#">注销</a></span>
+		</div>
+		<div class="content">
+			<div class="content-left">
+				<div class="menus">
+					<ul >
+						<li class="active">钻石充值</li>
+						<li>账号管理</li>
+					</ul>
+				</div>
+			</div>
+			<div class="content-right">
+				<div class="tabs">
+					<ul class="clearfix" id="nav">
+						<li class="active">钻石充值</li>
+						<li>充值记录</li>
+					</ul>
+				</div>
 
+				    <div id="menu_con">
+				        <div class="tag" style="display:block">
+				            <div class="input-group">
+				            	<span><label>玩家ID：</label><input type="text" name="accid" placeholder="请输入玩家ID"></span>
+				            	<span><label>确认玩家ID：</label><input type="text" name="confirm_accid" placeholder="确认玩家ID"></span>
+				            	<span><label>充值钻石数：</label><input type="text" name="diamond" placeholder="请输入钻石数"></span>
+				            </div>
+				        </div> 
+				        <div class="tag" style="display:none">
+				            这里是tab切换效果   
+				         </div> 
+					</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}
+
+{% block script %}
+	<script type="text/javascript">
+		function change(tab,content){
+		var $tab =  $(tab);
+		$tab.find("li").eq(0).addClass("active");
+		$tab.find("li").on("click",function(){
+		var index = $(this).index();
+			$(this).addClass("active").siblings().removeClass("active");
+			$(content).children("div").eq(index).show().siblings().hide();
+		})
+		}
+		change("#nav","#menu_con");
+
+	</script>
 
 {% endblock %}
+
