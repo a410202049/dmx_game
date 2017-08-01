@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50553
 File Encoding         : 65001
 
-Date: 2017-07-31 22:20:26
+Date: 2017-08-01 20:31:27
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -34,6 +34,7 @@ CREATE TABLE `t_account` (
 -- ----------------------------
 -- Records of t_account
 -- ----------------------------
+INSERT INTO `t_account` VALUES ('1', 'kerry', '', '0', '1', '0', '2017-08-01 19:47:33', '0');
 
 -- ----------------------------
 -- Table structure for `t_dealer`
@@ -51,7 +52,7 @@ CREATE TABLE `t_dealer` (
 -- ----------------------------
 -- Records of t_dealer
 -- ----------------------------
-INSERT INTO `t_dealer` VALUES ('admin', 'f0c5e35537259eb3dd20e444f26d37bd', '0', '1000', '2017-07-31 21:32:53');
+INSERT INTO `t_dealer` VALUES ('admin', 'f0c5e35537259eb3dd20e444f26d37bd', '0', '999', '2017-07-31 21:32:53');
 
 -- ----------------------------
 -- Table structure for `t_proxy`

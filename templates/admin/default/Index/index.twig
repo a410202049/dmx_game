@@ -3,14 +3,14 @@
 	<div class="bg">
 		<div class="manage_head">
 			<span class="manage_head_title">堂堂十三水充值系统</span>
-			<span class="logout">你好，admin <a href="#">注销</a></span>
+			<span class="logout">你好，{{ userInfo.id }} <a href="{{ base_url('logout') }}">注销</a></span>
 		</div>
 		<div class="content">
 			<div class="content-left">
 				<div class="menus">
 					<ul >
-						<li class="active">钻石充值</li>
-						<li>账号管理</li>
+						<li class="active"><a href="{{ base_url('/') }}">钻石充值</a></li>
+						<li><a href="{{ base_url('account-manage') }}">账号管理</a></li>
 					</ul>
 				</div>
 			</div>
@@ -25,15 +25,84 @@
 				    <div id="menu_con">
 				        <div class="tag" style="display:block">
 				            <div class="input-group">
-				            	<span><label>玩家ID：</label><input type="text" name="accid" placeholder="请输入玩家ID"></span>
-				            	<span><label>确认玩家ID：</label><input type="text" name="confirm_accid" placeholder="确认玩家ID"></span>
-				            	<span><label>充值钻石数：</label><input type="text" name="diamond" placeholder="请输入钻石数"></span>
+								{% if userInfo.type != 0 %}
+									<span><label>当前拥有钻石数：{{ userInfo.diamond }}颗</label></span>
+								{% endif %}
+				            	<span><label>玩家ID：</label><input type="text" name="accid" placeholder="请输入玩家ID" id="accid"></span>
+				            	<span><label>确认玩家ID：</label><input type="text" name="confirm_accid" placeholder="确认玩家ID" id="confirm_accid"></span>
+				            	<span><label>充值钻石数：</label><input type="text" name="diamond" placeholder="请输入钻石数" id="diamond"></span>
             	                <button class="recharge">充 值</button>
                 				<span class="message-tip">{{error_flashdata}}</span>
 				            </div>
 				        </div> 
 				        <div class="tag" style="display:none">
-				            这里是tab切换效果   
+							<div class="layui-form-pane" style="margin-top: 15px;margin-left: 115px;">
+								<div class="layui-form-item">
+									<label class="layui-form-label">范围选择</label>
+									<div class="layui-input-inline">
+										<input class="layui-input" placeholder="开始日" id="start">
+									</div>
+									<div class="layui-input-inline">
+										<input class="layui-input" placeholder="截止日" id="end">
+									</div>
+									<div class="layui-input-inline">
+										<button class="search">搜索</button>
+									</div>
+
+								</div>
+							</div>
+
+							<table  id="recharge_list" cellspacing="0" cellpadding="0">
+								<thead>
+								<tr>
+									<th>序号</th>
+									<th>充值玩家ID</th>
+									<th>充值钻石数</th>
+									<th>充值时间</th>
+								</tr>
+								</thead>
+
+								<tbody>
+								<tr>
+									<td>1</td>
+									<td>10086</td>
+									<td style="color: #00CC00">+100</td>
+									<td>2017-05-07 12:32:51</td>
+								</tr>
+								<tr>
+									<td>1</td>
+									<td>10086</td>
+									<td style="color: #00CC00">+100</td>
+									<td>2017-05-07 12:32:51</td>
+								</tr>								<tr>
+									<td>1</td>
+									<td>10086</td>
+									<td style="color: #00CC00">+100</td>
+									<td>2017-05-07 12:32:51</td>
+								</tr>								<tr>
+									<td>1</td>
+									<td>10086</td>
+									<td style="color: #00CC00">+100</td>
+									<td>2017-05-07 12:32:51</td>
+								</tr>								<tr>
+									<td>1</td>
+									<td>10086</td>
+									<td style="color: #00CC00">+100</td>
+									<td>2017-05-07 12:32:51</td>
+								</tr>								<tr>
+									<td>1</td>
+									<td>10086</td>
+									<td style="color: #00CC00">+100</td>
+									<td>2017-05-07 12:32:51</td>
+								</tr>
+								</tbody>
+							</table>
+
+							<div class="pager">
+								<div class="prev">上一页</div>
+								<div class="current">第1页</div>
+								<div class="next">下一页</div>
+							</div>
 				         </div> 
 					</div>
 			</div>

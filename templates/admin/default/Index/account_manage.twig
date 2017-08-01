@@ -1,0 +1,58 @@
+{% extends "Common/common.twig" %}
+{% block container %}
+	<div class="bg">
+		<div class="manage_head">
+			<span class="manage_head_title">堂堂十三水充值系统</span>
+			<span class="logout">你好，{{ userInfo.id }} <a href="{{ base_url('logout') }}">注销</a></span>
+		</div>
+		<div class="content">
+			<div class="content-left">
+				<div class="menus">
+					<ul >
+						<li><a href="{{ base_url('/') }}">钻石充值</a></li>
+						<li class="active"><a href="{{ base_url('account-manage') }}">账号管理</a></li>
+					</ul>
+				</div>
+			</div>
+			<div class="content-right">
+				<div class="tabs">
+					<ul class="clearfix" id="nav">
+						<li class="active">账号管理</li>
+					</ul>
+				</div>
+
+				    <div id="menu_con">
+				        <div class="tag" style="display:block">
+				            <div class="input-group">
+								<span><label>当前拥有钻石数：1000颗</label></span>
+				            	<span><label>玩家ID：</label><input type="text" name="accid" placeholder="请输入玩家ID"></span>
+				            	<span><label>确认玩家ID：</label><input type="text" name="confirm_accid" placeholder="确认玩家ID"></span>
+				            	<span><label>充值钻石数：</label><input type="text" name="diamond" placeholder="请输入钻石数"></span>
+            	                <button class="recharge">充 值</button>
+                				<span class="message-tip">{{error_flashdata}}</span>
+				            </div>
+				        </div> 
+
+					</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}
+
+{% block script %}
+	<script type="text/javascript">
+		function change(tab,content){
+		var $tab =  $(tab);
+		$tab.find("li").eq(0).addClass("active");
+		$tab.find("li").on("click",function(){
+		var index = $(this).index();
+			$(this).addClass("active").siblings().removeClass("active");
+			$(content).children("div").eq(index).show().siblings().hide();
+		})
+		}
+		change("#nav","#menu_con");
+
+	</script>
+
+{% endblock %}
+

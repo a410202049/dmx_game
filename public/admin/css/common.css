@@ -235,3 +235,58 @@ p{word-wrap:break-word}
 	margin-right: 65px;
 	/*margin-left: 88px;*/
 }
+
+#recharge_list{
+	border: 0;
+	margin-top: 25px;
+	margin-left: 100px;
+	width: 700px;
+
+
+}
+
+#recharge_list tr{
+	border-bottom: 1px solid #cacbcb;
+	height: 40px;
+}
+
+#recharge_list tr td{
+	text-align: center;
+	line-height: 40px;
+}
+
+
+.pager{
+	margin-left: 320px;
+	margin-top: 40px;;
+}
+.pager .current{
+	display: inline-block;
+	margin: 0 15px;
+}
+.pager .prev,.pager .next{
+	background: #69d0d1;
+	color: #fff;
+	padding: 5px;
+	width: 80px;
+	display: inline-block;
+	text-align: center;
+	cursor: pointer;
+}
+
+.search{
+	background: #69d0d1;
+	text-align: center;
+	color: #fff;
+	font-weight: bold;
+	font-size: 14px;
+	cursor: pointer;
+	display: block;
+	border:none;
+	padding: 10px 15px;
+	margin-top: 1px;
+}
+
+.menus a:hover{
+	color: #2e5380;
+}

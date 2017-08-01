@@ -57,3 +57,5 @@ $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 $route['login'] = "admin/Login/index";
 $route['logout'] = "admin/Login/logout";
+$route['account-manage'] = "admin/Index/account_manage";
+$route['recharge'] = "admin/Index/recharge";

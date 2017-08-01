@@ -92,7 +92,7 @@ class StdReturn
             self::$_dataKey => NULL
         );
         if ($append) {
-            $decorate[self::$_msgKey] .= '(' . $append . ')';
+            $decorate[self::$_msgKey] .=   $append ;
         }
         $decorate = json_encode($decorate);
 

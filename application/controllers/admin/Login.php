@@ -64,7 +64,7 @@ class Login extends Base_Controller {
 	public function logout(){
 		$this->session->sess_destroy();
 		setcookie(AUTH_COOKIE_NAME, ' ', time() - 31536000, '/');
-		// redirect(base_url('admin/Login'));
+	 	redirect(base_url('login'));
 	}
 
 

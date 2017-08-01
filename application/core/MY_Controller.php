@@ -7,6 +7,7 @@ class Base_Controller extends CI_Controller {
         parent::__construct();
         $this->load->model('DataModel','Data');
         $this->load->model('DealerModel','Dealer');
+//        $this->load->model('UserModel','User');
         $this->load->library('LoginAuth');//加载token验证类
         $this->regular = $this->config->item('regular');
     }
@@ -116,12 +117,11 @@ class admin_Auth_Controller extends Base_Controller {
         $twig_config['template_dir'] = $twig_config['template_dir'].$tplName;
         $this->load->library('Twig',$twig_config);
         $this->uid = $this->loginauth->isLogin();
-        // $this->userInfo = $this->user->getUserInfo($this->uid,true);
+        $this->userInfo = $this->Dealer->getUserInfo($this->uid);
          if(!$this->loginauth->isLogin()){
              redirect(base_url('login'));
          }
-
-        // $this->twig->assign('userInfo',$this->userInfo);
+         $this->twig->assign('userInfo',$this->userInfo);
         // $this->twig->assign('uid',$this->uid);
     }
 }
