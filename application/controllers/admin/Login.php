@@ -50,7 +50,7 @@ class Login extends Base_Controller {
 //		}
 
 		if($this->session->flashdata('error')){
-			redirect(base_url('Login'));
+			redirect(base_url('login'));
 		}
         $this->loginauth->setAuthCookie($username,true);//当前用户设置cookie
 		$this->loginauth->genToken();//登录成功生成token

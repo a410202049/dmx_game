@@ -9,7 +9,10 @@
 			<div class="content-left">
 				<div class="menus">
 					<ul >
-						<li><a href="{{ base_url('/') }}">钻石充值</a></li>
+						<li><a href="{{ base_url('/') }}">玩家充值</a></li>
+                        {% if userInfo.type == 0 %}
+                            <li><a href="{{ base_url('proxy-manage') }}">代理商充值</a></li>
+                        {% endif %}
 						<li class="active"><a href="{{ base_url('account-manage') }}">账号管理</a></li>
 					</ul>
 				</div>
@@ -24,11 +27,17 @@
 				    <div id="menu_con">
 				        <div class="tag" style="display:block">
 				            <div class="input-group">
-								<span><label>当前拥有钻石数：1000颗</label></span>
-				            	<span><label>玩家ID：</label><input type="text" name="accid" placeholder="请输入玩家ID"></span>
-				            	<span><label>确认玩家ID：</label><input type="text" name="confirm_accid" placeholder="确认玩家ID"></span>
-				            	<span><label>充值钻石数：</label><input type="text" name="diamond" placeholder="请输入钻石数"></span>
-            	                <button class="recharge">充 值</button>
+				            	<span style="width:220px;"><label>累计充值钻石数：{{total_diamond}}颗</label></span>
+				            	
+				            	{% if userInfo.type != 0 %}
+									<span style="width:220px;"><label>当前拥有钻石数：{{userInfo.diamond}}颗</label></span>
+								{% endif %}
+
+								<span style="font-weight:700;width:220px;">修改密码</span>
+				            	<span style="margin-left:28px;"><label>原密码：</label><input type="password" id="oldpasswd" name="oldpasswd" placeholder="请输入原密码"></span>
+				            	<span><label>新密码：</label><input type="password" name="newpasswd" id="newpasswd" placeholder="请输入新密码"></span>
+				            	<span><label>确认密码：</label><input type="password" name="confpasswd" id="confpasswd" placeholder="请输入确认密码"></span>
+            	                <button class="modify">修 改</button>
                 				<span class="message-tip">{{error_flashdata}}</span>
 				            </div>
 				        </div> 
@@ -51,6 +60,39 @@
 		})
 		}
 		change("#nav","#menu_con");
+
+		$(function(){
+			layui.use(['laydate','layer'], function() {
+				$('.modify').click(function(){
+		            var oldpasswd =  $("#oldpasswd").val();
+		            var newpasswd =  $("#newpasswd").val();
+		            var confpasswd =  $("#confpasswd").val();
+		            $.ajax({
+		                type: 'POST',
+		                url: '/modify-passwd',
+		                data: {oldpasswd:oldpasswd,newpasswd:newpasswd,confpasswd:confpasswd},
+		                dataType: "json",
+		                    beforeSend: function(){
+		                        var index = layer.load(0, {shade: false}); //0代表加载的风格，支持0-2
+		                     // Handle the beforeSend event
+		                    },
+		                    complete: function(){
+		                        layer.closeAll('loading');
+		                     // Handle the complete event
+		                    },
+		                    success: function(data){
+		                        console.log(data);
+		                        if(data.status == 0){
+		                            layer.msg('修改成功',{icon: 1});
+		                            location.reload()
+		                        }else{
+		                            layer.msg(data.msg,{icon: 2});
+		                        }
+		                    }
+		            });
+				});
+			})
+		})
 
 	</script>
 

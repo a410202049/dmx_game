@@ -12,9 +12,9 @@
 			<div class="content-left">
 				<div class="menus">
 					<ul >
-						<li class="active"><a href="{{ base_url('/') }}">玩家充值</a></li>
+						<li><a href="{{ base_url('/') }}">玩家充值</a></li>
                         {% if userInfo.type == 0 %}
-                            <li><a href="{{ base_url('proxy-manage') }}">代理商充值</a></li>
+                            <li class="active"><a href="{{ base_url('proxy-manage') }}">代理商充值</a></li>
                         {% endif %}
 						<li><a href="{{ base_url('account-manage') }}">账号管理</a></li>
 					</ul>
@@ -34,8 +34,8 @@
 								{% if userInfo.type != 0 %}
 									<span><label>当前拥有钻石数：{{ userInfo.diamond }}颗</label></span>
 								{% endif %}
-				            	<span><label>玩家ID：</label><input type="text" name="accid" placeholder="请输入玩家ID" id="accid"></span>
-				            	<span><label>确认玩家ID：</label><input type="text" name="confirm_accid" placeholder="确认玩家ID" id="confirm_accid"></span>
+				            	<span><label>代理商ID：</label><input type="text" name="proxy_id" placeholder="请输入代理商ID" id="proxy_id"></span>
+				            	<span><label>确认代理商ID：</label><input type="text" name="confirm_proxy_id" placeholder="确认代理商ID" id="confirm_proxy_id"></span>
 				            	<span><label>充值钻石数：</label><input type="text" name="diamond" placeholder="请输入钻石数" id="diamond"></span>
             	                <button class="recharge">充 值</button>
                 				<span class="message-tip">{{error_flashdata}}</span>
@@ -62,7 +62,7 @@
 								<thead>
 								<tr>
 									<th>序号</th>
-									<th>充值玩家ID</th>
+									<th>充值代理商ID</th>
 									<th>充值钻石数</th>
 									<th>充值时间</th>
 								</tr>
@@ -73,7 +73,6 @@
 
 								</tbody>
 							</table>
-
                             <div class="diamond_total">期间累计充值钻石数为<span>0</span>颗</div>
 							<div class="pager"></div>
 				         </div> 
@@ -117,13 +116,14 @@ $(function(){
             laydate(end);
         }
         $('.recharge').click(function(){
-            var accid =  $("#accid").val();
-            var confirm_accid =  $("#confirm_accid").val();
+            var proxy_id =  $("#proxy_id").val();
+            var confirm_proxy_id =  $("#confirm_proxy_id").val();
             var diamond =  $("#diamond").val();
+            console.log(diamond);
             $.ajax({
                 type: 'POST',
-                url: '/recharge',
-                data: {accid:accid,confirm_accid:confirm_accid,diamond:diamond},
+                url: '/proxy-recharge',
+                data: {proxy_id:proxy_id,confirm_proxy_id:confirm_proxy_id,diamond:diamond},
                 dataType: "json",
                     beforeSend: function(){
                         var index = layer.load(0, {shade: false}); //0代表加载的风格，支持0-2
@@ -187,7 +187,7 @@ $(function(){
                 var page = arguments[2] ? arguments[2] : '1';
                 $.ajax({
                     type: 'POST',
-                    url: '/recharge-list/'+page,
+                    url: '/proxy-recharge-list/'+page,
                     data: {starttime:starttime,endtime:endtime},
                     async: false,
                     dataType: "json",
@@ -203,7 +203,7 @@ $(function(){
                             if(data.status == 0){
                                 str = ''
                                 $.each(data.data.list, function(index,val) {
-                                    str += '<tr> <td>'+val.id+'</td> <td>'+val.accid+'</td> <td style="color: #00CC00">+'+val.diamond+'</td> <td>'+val.create_time+'</td> </tr>';
+                                    str += '<tr> <td>'+val.id+'</td> <td>'+val.proxy_id+'</td> <td style="color: #00CC00">+'+val.diamond+'</td> <td>'+val.create_time+'</td> </tr>';
                                 });
                                 $('#recharge_list tbody').html(str);
 
@@ -212,7 +212,6 @@ $(function(){
                                 }
 
                                 item = data.data.total;
-
                                 $('.diamond_total span').html(data.data.total_diamond);
                             }
                         }

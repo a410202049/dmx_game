@@ -1,16 +1,16 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : local
-Source Server Version : 50553
+Source Server         : 本地
+Source Server Version : 50636
 Source Host           : localhost:3306
 Source Database       : dmx
 
 Target Server Type    : MYSQL
-Target Server Version : 50553
+Target Server Version : 50636
 File Encoding         : 65001
 
-Date: 2017-08-01 20:31:27
+Date: 2017-08-02 19:46:02
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -34,7 +34,7 @@ CREATE TABLE `t_account` (
 -- ----------------------------
 -- Records of t_account
 -- ----------------------------
-INSERT INTO `t_account` VALUES ('1', 'kerry', '', '0', '1', '0', '2017-08-01 19:47:33', '0');
+INSERT INTO `t_account` VALUES ('1', '11', '1', '1', '1', '1', '2017-08-02 10:54:10', '223');
 
 -- ----------------------------
 -- Table structure for `t_dealer`
@@ -52,7 +52,8 @@ CREATE TABLE `t_dealer` (
 -- ----------------------------
 -- Records of t_dealer
 -- ----------------------------
-INSERT INTO `t_dealer` VALUES ('admin', 'f0c5e35537259eb3dd20e444f26d37bd', '0', '999', '2017-07-31 21:32:53');
+INSERT INTO `t_dealer` VALUES ('admin', 'f0c5e35537259eb3dd20e444f26d37bd', '0', '777', '2017-07-31 21:32:53');
+INSERT INTO `t_dealer` VALUES ('test', 'f0c5e35537259eb3dd20e444f26d37bd', '1', '223', '2017-08-02 18:15:16');
 
 -- ----------------------------
 -- Table structure for `t_proxy`
@@ -65,11 +66,13 @@ CREATE TABLE `t_proxy` (
   `dealer_id` varchar(20) NOT NULL,
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of t_proxy
 -- ----------------------------
+INSERT INTO `t_proxy` VALUES ('11', 'test', '222', 'admin', '2017-08-02 18:16:00');
+INSERT INTO `t_proxy` VALUES ('12', 'test', '1', 'admin', '2017-08-02 18:16:46');
 
 -- ----------------------------
 -- Table structure for `t_trade`
@@ -82,8 +85,20 @@ CREATE TABLE `t_trade` (
   `dealer_id` varchar(20) NOT NULL,
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=23 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of t_trade
 -- ----------------------------
+INSERT INTO `t_trade` VALUES ('11', '1', '22', 'admin', '2017-08-01 13:44:59');
+INSERT INTO `t_trade` VALUES ('12', '1', '22', 'admin', '2017-08-02 14:08:20');
+INSERT INTO `t_trade` VALUES ('13', '1', '22', 'admin', '2017-08-02 14:12:02');
+INSERT INTO `t_trade` VALUES ('14', '1', '11', 'admin', '2017-08-02 14:13:15');
+INSERT INTO `t_trade` VALUES ('15', '1', '1', 'admin', '2017-08-02 14:13:20');
+INSERT INTO `t_trade` VALUES ('16', '1', '12', 'admin', '2017-08-02 14:13:30');
+INSERT INTO `t_trade` VALUES ('17', '1', '1', 'admin', '2017-08-02 14:13:38');
+INSERT INTO `t_trade` VALUES ('18', '1', '12', 'admin', '2017-08-02 14:14:31');
+INSERT INTO `t_trade` VALUES ('19', '1', '11', 'admin', '2017-08-02 14:29:16');
+INSERT INTO `t_trade` VALUES ('20', '1', '12', 'admin', '2017-08-02 14:29:38');
+INSERT INTO `t_trade` VALUES ('21', '1', '100', 'admin', '2017-08-02 14:29:49');
+INSERT INTO `t_trade` VALUES ('22', '1', '100', 'admin', '2017-08-02 14:29:58');

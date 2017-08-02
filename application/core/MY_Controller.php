@@ -7,7 +7,8 @@ class Base_Controller extends CI_Controller {
         parent::__construct();
         $this->load->model('DataModel','Data');
         $this->load->model('DealerModel','Dealer');
-//        $this->load->model('UserModel','User');
+        $this->load->model('AccountModel','Account');
+        
         $this->load->library('LoginAuth');//加载token验证类
         $this->regular = $this->config->item('regular');
     }

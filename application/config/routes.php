@@ -59,3 +59,10 @@ $route['login'] = "admin/Login/index";
 $route['logout'] = "admin/Login/logout";
 $route['account-manage'] = "admin/Index/account_manage";
 $route['recharge'] = "admin/Index/recharge";
+$route['recharge-list/(:num)'] = "admin/Index/recharge_list";
+$route['proxy-manage'] = "admin/Index/proxy_manage";
+$route['proxy-recharge'] = "admin/Index/proxy_recharge";
+
+$route['proxy-recharge-list/(:num)'] = "admin/Index/proxy_recharge_list";
+
+$route['modify-passwd'] = "admin/Index/modify_passwd";

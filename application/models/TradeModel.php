@@ -1,7 +1,8 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-class SiteModel extends DataModel{
+class TradeModel extends DataModel{
 	function __construct($table=''){
   		parent::__construct();
+		$this->setTable('trade');
 	}
 	
 
@@ -11,9 +12,8 @@ class SiteModel extends DataModel{
 	 * @param  boolean $isId      [isID]
 	 * @return [type]             [userData]
 	 */
-	function getSiteInfo(){
-		$this->table = 'site_config';
-		return $this->getRow();
-	}
+	// function insert_trade($data){
+	// 	$this->Data->add($data);
+	// }
 	
 }

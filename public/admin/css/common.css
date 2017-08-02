@@ -220,7 +220,7 @@ p{word-wrap:break-word}
 	text-decoration: underline;
 }
 
-.recharge{
+.recharge,.modify{
 	width: 100px;
 	background: #69d0d1;
 	padding: 5px 0;
@@ -289,4 +289,11 @@ p{word-wrap:break-word}
 
 .menus a:hover{
 	color: #2e5380;
+}
+
+.diamond_total{
+    margin-left: 640px;
+    margin-top: 20px;
+    font-size: 14px;
+    font-weight: bold;
 }
