@@ -150,7 +150,7 @@ $(function(){
 
             $('.pager').pagination({
                 items: items,
-                itemsOnPage: 5,
+                itemsOnPage: 10,
                 // theme: 'simple-theme',
                 onPageClick: function(pageNo, e) {
                     // console.log(pageNo, e)
@@ -168,7 +168,7 @@ $(function(){
                 item = page(start,end);
                 $('.pager').pagination({
                     items: item,
-                    itemsOnPage: 5,
+                    itemsOnPage: 10,
                     // theme: 'simple-theme',
                     onPageClick: function(pageNo, e) {
                         // console.log(pageNo, e)
@@ -204,7 +204,7 @@ $(function(){
                             if(data.status == 0){
                                 str = ''
                                 $.each(data.data.list, function(index,val) {
-                                    str += '<tr> <td>'+val.id+'</td> <td>'+val.proxy_id+'</td> <td style="color: #00CC00">+'+val.diamond+'</td> <td>'+val.create_time+'</td> </tr>';
+                                    str += '<tr> <td>'+(index+1)+'</td> <td>'+val.proxy_id+'</td> <td style="color: #00CC00">+'+val.diamond+'</td> <td>'+val.create_time+'</td> </tr>';
                                 });
                                 $('#recharge_list tbody').html(str);
 
