@@ -54,7 +54,11 @@ class Login extends Base_Controller {
 		}
         $this->loginauth->setAuthCookie($username,true);//当前用户设置cookie
 		$this->loginauth->genToken();//登录成功生成token
-		redirect(base_url('/'));
+		if($user['type'] == 0){
+			redirect(base_url('/'));
+		}else{
+			redirect(base_url('/player-manage'));
+		}
 
 	}
 

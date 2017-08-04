@@ -3,16 +3,16 @@
 	<div class="bg">
 		<div class="manage_head">
 			<span class="manage_head_title">堂堂十三水充值系统</span>
-			<span class="logout">你好，{{ userInfo.id }} <a href="{{ base_url('logout') }}">注销</a></span>
+			<span class="logout">你好，{{ userInfo.id }} <a href="javascript:void(0);" id="logout">注销</a></span>
 		</div>
 		<div class="content">
 			<div class="content-left">
 				<div class="menus">
 					<ul >
-						<li><a href="{{ base_url('/') }}">玩家充值</a></li>
                         {% if userInfo.type == 0 %}
-                            <li><a href="{{ base_url('proxy-manage') }}">代理商充值</a></li>
+                            <li><a href="{{ base_url('/') }}">代理商充值</a></li>
                         {% endif %}
+						<li><a href="{{ base_url('player-manage') }}">玩家充值</a></li>
 						<li class="active"><a href="{{ base_url('account-manage') }}">账号管理</a></li>
 					</ul>
 				</div>
@@ -27,13 +27,14 @@
 				    <div id="menu_con">
 				        <div class="tag" style="display:block">
 				            <div class="input-group">
+				            	<span style="width:220px;"><label>当前账号：{{userInfo.id}}</label></span>
 				            	<span style="width:220px;"><label>累计充值钻石数：{{total_diamond}}颗</label></span>
 				            	
 				            	{% if userInfo.type != 0 %}
 									<span style="width:220px;"><label>当前拥有钻石数：{{userInfo.diamond}}颗</label></span>
 								{% endif %}
 
-								<span style="font-weight:700;width:220px;">修改密码</span>
+								<span style="font-weight:700;width:220px;margin-top:20px;">修改密码</span>
 				            	<span style="margin-left:28px;"><label>原密码：</label><input type="password" id="oldpasswd" name="oldpasswd" placeholder="请输入原密码"></span>
 				            	<span><label>新密码：</label><input type="password" name="newpasswd" id="newpasswd" placeholder="请输入新密码"></span>
 				            	<span><label>确认密码：</label><input type="password" name="confpasswd" id="confpasswd" placeholder="请输入确认密码"></span>
@@ -83,14 +84,26 @@
 		                    success: function(data){
 		                        console.log(data);
 		                        if(data.status == 0){
-		                            layer.msg('修改成功',{icon: 1});
-		                            location.reload()
+
+					                layer.alert('修改密码成功', {icon: 1}, function(index) {
+					                    layer.close(index); // 关闭提示框
+					                    location.reload()
+					                });
+
 		                        }else{
 		                            layer.msg(data.msg,{icon: 2});
 		                        }
 		                    }
 		            });
 				});
+
+	            $('#logout').click(function(){
+	                layer.confirm('确定要注销吗？', {
+	                  btn: ['确认','取消'] //按钮
+	                }, function(){
+	                    window.location.href = '/logout';
+	                });
+	            })
 			})
 		})
 

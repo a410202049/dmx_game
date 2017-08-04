@@ -7,12 +7,15 @@ class Index extends admin_Auth_Controller {
 
 	public function index(){
 		// $this->twig->assign('page_num',12);
+		if($this->userInfo['type'] != 0){
+			redirect(base_url('/player-manage'));
+		}
 		$this->twig->render('Index/index');
 	}
 
-	public function proxy_manage(){
+	public function player_manage(){
 		// $this->twig->assign('page_num',12);
-		$this->twig->render('Index/proxy_manage');
+		$this->twig->render('Index/player_manage');
 	}
 
 	public function account_manage(){
@@ -31,6 +34,7 @@ class Index extends admin_Auth_Controller {
 			$account_total_diamond = $this->db->query($account_total_diamond_sql)->row_array();
 			$total_diamond = $account_total_diamond['total_diamond'];
 		}
+		$total_diamond = $total_diamond ? $total_diamond : 0;
 		$this->twig->assign('total_diamond',$total_diamond);
 		$this->twig->render('Index/account_manage');
 	}
@@ -51,8 +55,12 @@ class Index extends admin_Auth_Controller {
 			$this->stdreturn->failed('1','钻石数量不能为空');
 		}else if(!is_numeric($diamond) || $diamond <=0){
 			$this->stdreturn->failed('1','钻石数量必须为正整数');
-		}else if($diamond > $max_diamond){
-			$this->stdreturn->failed('1','钻石数量不能大于'.$max_diamond.'颗');
+		}
+
+		if($this->userInfo['type'] != 0){
+			if($diamond > $max_diamond){
+				$this->stdreturn->failed('1','钻石数量不能大于'.$max_diamond.'颗');
+			}
 		}
 		$account = $this->db->get_where('account',array('accid'=>$accid))->row_array();
 
@@ -111,10 +119,12 @@ class Index extends admin_Auth_Controller {
 			$where.= " and create_time BETWEEN '".$starttime." 00:00:00' AND '".$endtime." 23:59:59'" ; 
 		}
 
+		$where.=" order by create_time desc";
+
 		$sql = "select * from t_trade where ".$where;
 		$total_diamond_sql = "select sum(diamond) as total_diamond from t_trade where ".$where;
 		$total_diamond = $this->db->query($total_diamond_sql)->row_array();
-        $page['perpage'] = '5';
+        $page['perpage'] = '10';
         $page['query'] = $sql;
         $page['seg'] = '2';
         $page['url'] = 'recharge-list';
@@ -185,11 +195,12 @@ class Index extends admin_Auth_Controller {
 			$where.= " and create_time BETWEEN '".$starttime." 00:00:00' AND '".$endtime." 23:59:59'" ; 
 		}
 
+		$where.=" order by create_time desc";
 		$sql = "select * from t_proxy where ".$where;
 		$total_diamond_sql = "select sum(diamond) as total_diamond from t_proxy where ".$where;
 		$total_diamond = $this->db->query($total_diamond_sql)->row_array();
 
-        $page['perpage'] = '5';
+        $page['perpage'] = '10';
         $page['query'] = $sql;
         $page['seg'] = '2';
         $page['url'] = 'recharge-list';
@@ -219,9 +230,39 @@ class Index extends admin_Auth_Controller {
 		if($dealer['passwd'] != do_hash($oldpasswd)){
 			$this->stdreturn->failed('1','原密码不正确');
 		}
-		$this->Data->edit($where,array('passwd'=>do_hash($newpasswd)),'dealer');
+		$this->Data->edit(array('id'=>$this->userInfo['id']),array('passwd'=>do_hash($newpasswd)),'dealer');
 		$this->stdreturn->ok();
 
+
+	}
+
+
+	public function add_proxy_page(){
+		$this->twig->render('Index/add_proxy_page');
+	}
+
+	public function add_proxy(){
+		$proxy = $this->input->post('proxy');
+		$passwd = $this->input->post('passwd');
+
+		$proxy_data = $this->db->get_where('dealer',array('id'=>$proxy))->row_array();
+		if(!$proxy){
+			$this->stdreturn->failed('1','账号不能为空');
+		}	
+		if(!$passwd){
+			$this->stdreturn->failed('1','密码不能为空');
+		}	
+		if($proxy_data){
+			$this->stdreturn->failed('1','该账号已存在');
+		}
+
+		$data = array(
+			"id"=>$proxy,
+			"passwd"=>do_hash($passwd),
+			"type"=>1
+		);
+		$this->Data->add($data,'dealer');
+		$this->stdreturn->ok();
 
 	}
 
