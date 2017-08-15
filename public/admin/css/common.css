@@ -223,7 +223,7 @@ p{word-wrap:break-word}
 	text-decoration: underline;
 }
 
-.recharge,.modify{
+.recharge,.modify,.add_proxy{
 	width: 100px;
 	background: #69d0d1;
 	padding: 5px 0;
@@ -300,4 +300,20 @@ p{word-wrap:break-word}
     margin-top: 20px;
     font-size: 14px;
     font-weight: bold;
+}
+
+
+.proxy_status{
+	padding: 5px 10px;
+	color: #fff;
+	margin-left: 10px;
+	cursor: pointer;
+}
+
+.ft{
+	background: red;
+}
+
+.hf{
+	background: #000;
 }

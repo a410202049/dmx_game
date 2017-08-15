@@ -69,3 +69,8 @@ $route['modify-passwd'] = "admin/Index/modify_passwd";
 
 $route['add-proxy-page'] = "admin/Index/add_proxy_page";
 $route['add-proxy'] = "admin/Index/add_proxy";
+$route['proxy-manage'] = "admin/Index/proxy_manage";
+
+$route['proxy-list/(:num)'] = "admin/Index/proxy_list";
+$route['proxy-status'] = "admin/Index/proxy_status";
+

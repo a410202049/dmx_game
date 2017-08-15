@@ -43,11 +43,9 @@ class Login extends Base_Controller {
 			$this->session->set_flashdata('error','用户名或密码错误');//用户名或密码错误
 		}
 
-//		if($user && !$user['status']){
-//			$this->session->set_flashdata('error','该用户已经被禁用，请联系管理员');//该用户已经被禁用，请联系管理员
-//		}else if($user && !$user['group_status']){
-//			$this->session->set_flashdata('error','该用户组已经被禁用，请联系管理员');//该用户组已经被禁用，请联系管理员
-//		}
+		if(!$user['status']){
+			$this->session->set_flashdata('error','该用户已经被禁用，请联系管理员');//该用户已经被禁用，请联系管理员
+		}
 
 		if($this->session->flashdata('error')){
 			redirect(base_url('login'));

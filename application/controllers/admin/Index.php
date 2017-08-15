@@ -108,7 +108,7 @@ class Index extends admin_Auth_Controller {
 	public function recharge_list(){
 		$starttime = $this->input->post('starttime');
 		$endtime = $this->input->post('endtime');
-
+		$where = "";
 		if($this->userInfo['type'] == 0){
 			$where.= '1=1';
 		}else{
@@ -182,7 +182,7 @@ class Index extends admin_Auth_Controller {
 	public function proxy_recharge_list(){
 		$starttime = $this->input->post('starttime');
 		$endtime = $this->input->post('endtime');
-
+		$where = "";
 		if($this->userInfo['type'] == 0){
 			$where.= '1=1';
 		}
@@ -242,29 +242,99 @@ class Index extends admin_Auth_Controller {
 	}
 
 	public function add_proxy(){
-		$proxy = $this->input->post('proxy');
-		$passwd = $this->input->post('passwd');
+		$proxyid = $this->input->post('proxyid');
+		$confirm_proxyid = $this->input->post('confirm_proxyid');
+		$passwd = '123456';
 
-		$proxy_data = $this->db->get_where('dealer',array('id'=>$proxy))->row_array();
-		if(!$proxy){
+		$proxy_data = $this->db->get_where('dealer',array('id'=>$proxyid))->row_array();
+		if(!$proxyid){
 			$this->stdreturn->failed('1','账号不能为空');
-		}	
-		if(!$passwd){
-			$this->stdreturn->failed('1','密码不能为空');
+		}
+		if($confirm_proxyid !=$proxyid){
+			$this->stdreturn->failed('1','确认ID不一致');
 		}	
 		if($proxy_data){
 			$this->stdreturn->failed('1','该账号已存在');
 		}
 
 		$data = array(
-			"id"=>$proxy,
+			"id"=>$proxyid,
 			"passwd"=>do_hash($passwd),
-			"type"=>1
+			"type"=>1,
+			"pid"=>$this->uid
 		);
+
 		$this->Data->add($data,'dealer');
 		$this->stdreturn->ok();
 
 	}
+
+	public function proxy_list(){
+		$starttime = $this->input->post('starttime');
+		$endtime = $this->input->post('endtime');
+		$where = "";
+		if($this->userInfo['type'] == 0){
+			$where.= 'd.type != 0';
+		}else{
+			$where.= 'd.pid = \''.$this->uid.'\'';
+		}
+
+		// SELECT d.*, case when sum(p.diamond) is null then 0 else sum(p.diamond) end as total_diamond  from t_dealer as d LEFT JOIN t_proxy as p on d.id = p.proxy_id where d.pid = 'admin' GROUP BY p.proxy_id
+
+		if($starttime && $endtime ){
+			$where.= " and d.create_time BETWEEN '".$starttime." 00:00:00' AND '".$endtime." 23:59:59'" ; 
+		}
+		$where.=" GROUP BY d.id";
+		$where.=" order by create_time desc";
+		$sql = "SELECT d.id,d.status,d.create_time, case when sum(p.diamond) is null then 0 else sum(p.diamond) end as total_diamond  from t_dealer as d LEFT JOIN t_proxy as p on d.id = p.proxy_id where ".$where;
+
+
+		// echo $sql;exit;
+        $page['perpage'] = '10';
+        $page['query'] = $sql;
+        $page['seg'] = '2';
+        $page['url'] = 'recharge-list';
+        $record = $this->page($page);
+        $arr['list'] = $record;
+        $arr['total'] = $this->pager->total;
+        // $arr['total_diamond'] = $total_diamond['total_diamond'];
+		$this->stdreturn->ok($arr);
+	}
+
+
+
+	public function proxy_manage(){
+		$this->twig->render('Index/proxy_manage');
+	}
+
+	public function proxy_status(){
+		$proxyid = $this->input->post('proxyid');
+		$proxy_data = "";
+		if($this->userInfo['type'] != 0){
+			$proxy_data = $this->db->get_where('dealer',array('id'=>$proxyid,'pid'=>$this->uid))->row_array();
+
+		}else{
+			$proxy_data = $this->db->get_where('dealer',array('id'=>$proxyid))->row_array();
+		}
+		if(!$proxy_data){
+			$this->stdreturn->failed('1','你没有创建该代理商');
+		}
+		if($proxy_data['status'] == 1){
+			$data = array(
+				"status"=>0
+			);
+			$this->Data->edit(array('id'=>$proxyid),$data,'dealer');
+		}else{
+			$data = array(
+				"status"=>1
+			);
+			$this->Data->edit(array('id'=>$proxyid),$data,'dealer');
+		}
+
+		$this->stdreturn->ok();
+
+	}
+
 
 
 }
