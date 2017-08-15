@@ -74,3 +74,6 @@ $route['proxy-manage'] = "admin/Index/proxy_manage";
 $route['proxy-list/(:num)'] = "admin/Index/proxy_list";
 $route['proxy-status'] = "admin/Index/proxy_status";
 
+
+$route['mobile-login'] = "admin/MobileLogin/index";
+
