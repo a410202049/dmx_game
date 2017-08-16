@@ -50,7 +50,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |		my-controller/my-method	-> my_controller/my_method
 */
 $route['default_controller'] = 'admin@Index/index';
-
+$route['mobile-index'] = 'admin@MobileIndex/index';
 
 
 $route['404_override'] = '';

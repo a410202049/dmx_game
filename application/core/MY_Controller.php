@@ -127,3 +127,23 @@ class admin_Auth_Controller extends Base_Controller {
     }
 }
 
+
+
+class mobile_admin_Auth_Controller extends Base_Controller {
+    public $uid;//用户id
+    public function __construct() {
+        parent::__construct();
+        $this->config->load('twig');//加载twig配置文件
+        $twig_config = $this->config->item('twig_admin');//后台模板引擎设置
+        $tplName = 'default';//数据库查询当前模板名字
+        $twig_config['template_dir'] = $twig_config['template_dir'].$tplName;
+        $this->load->library('Twig',$twig_config);
+        $this->uid = $this->loginauth->isLogin();
+        $this->userInfo = $this->Dealer->getUserInfo($this->uid);
+         if(!$this->loginauth->isLogin()){
+             redirect(base_url('mobile-login'));
+         }
+         $this->twig->assign('userInfo',$this->userInfo);
+        // $this->twig->assign('uid',$this->uid);
+    }
+}

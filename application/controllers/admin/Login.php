@@ -41,9 +41,7 @@ class Login extends Base_Controller {
 			$this->session->set_flashdata('error','密码不能为空');
 		}else if($user['passwd']!=do_hash($password)){
 			$this->session->set_flashdata('error','用户名或密码错误');//用户名或密码错误
-		}
-
-		if(!$user['status']){
+		}else if(!$user['status']){
 			$this->session->set_flashdata('error','该用户已经被禁用，请联系管理员');//该用户已经被禁用，请联系管理员
 		}
 

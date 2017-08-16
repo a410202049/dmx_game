@@ -16,8 +16,10 @@ class MobileLogin extends Base_Controller {
     
 	public function index() {
          if($this->loginauth->isLogin()){
-             redirect(base_url('/'));
+             redirect(base_url('mobile-index'));
          }
+         // $this->session->set_flashdata('error','账号不能为空');
+         // print_r($this->session->flashdata('error'));exit;
     	$this->twig->render(
     		'MobileLogin/index',
     		array('error_flashdata'=>$this->session->flashdata('error'))
@@ -40,22 +42,22 @@ class MobileLogin extends Base_Controller {
 			$this->session->set_flashdata('error','密码不能为空');
 		}else if($user['passwd']!=do_hash($password)){
 			$this->session->set_flashdata('error','用户名或密码错误');//用户名或密码错误
-		}
-
-		if(!$user['status']){
+		}else if(!$user['status']){
 			$this->session->set_flashdata('error','该用户已经被禁用，请联系管理员');//该用户已经被禁用，请联系管理员
 		}
 
 		if($this->session->flashdata('error')){
-			redirect(base_url('login'));
+			redirect(base_url('admin/MobileLogin'));
 		}
         $this->loginauth->setAuthCookie($username,true);//当前用户设置cookie
 		$this->loginauth->genToken();//登录成功生成token
-		if($user['type'] == 0){
-			redirect(base_url('/'));
-		}else{
-			redirect(base_url('/player-manage'));
-		}
+
+		redirect(base_url('mobile-index'));
+		// if($user['type'] == 0){
+		// 	redirect(base_url('mobile-index'));
+		// }else{
+		// 	redirect(base_url('/mobile-player-manage'));
+		// }
 
 	}
 

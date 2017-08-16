@@ -1,9 +1,19 @@
 {% extends "Common/mobile_common.twig" %}
 
 {% block container %}
-<div class="wrapper">
-	<div class="bg">
-		
+<div class="wrapper bg">
+	<div class="box">
+		<div class="logo"></div>
+		<div class="title">堂堂十三水钻石管理后台</div>
+
+        <form  role="form" action="{{base_url('admin/MobileLogin/do_login')}}"  method="post">
+            <div class="login-input">
+                <input type="text" name="username" id="username" placeholder="请输入管理员或代理商账号">
+                <input type="password" name="password" id="password" placeholder="请输入密码">
+                <button class="login-btn" type="submit">登 录</button>
+                <span class="message-tip">{{error_flashdata}}</span>
+            </div>
+        </form>
 	</div>
 </div>
 {% endblock %}
