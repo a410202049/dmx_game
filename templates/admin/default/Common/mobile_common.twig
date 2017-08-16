@@ -12,15 +12,13 @@
         <meta http-equiv="refresh" content="0;ie.html" />
         <![endif]-->
         <link rel="shortcut icon" href="{{base_url('public/admin/img/favicon.ico?v=2')}}">
-
         <link href="{{base_url('public/admin/css/mobile_common.css')}}" rel="stylesheet">
         {% block style %}{% endblock %}
     </head>
-    <body>
+    <body {% block bodyClass %}{% endblock %}>
     {% block container %}{% endblock %}
-    <script src="{{base_url('public/admin/js/zepto.min.js')}}"></script>
-
-    <script src="{{base_url('public/admin/js/mobile_common.js')}}"></script>
+        <script src="{{base_url('public/admin/js/zepto.min.js')}}"></script>
+        <script src="{{base_url('public/admin/js/mobile_common.js')}}"></script>
     {% block script %}{% endblock %}
     </body>
 </html>

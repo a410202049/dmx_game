@@ -1,0 +1,32 @@
+{% extends "Common/mobile_common.twig" %}
+{% block bodyClass %}style="background:#f9f6f3;"{% endblock %}
+{% block container %}
+<div class="wrapper" style="">
+	<div class="nav">
+		<a href="{{base_url('mobile-index')}}"><span class="arrow_left"></span></a>
+		<div class="page_title">
+			玩家充值
+		</div>
+		<div class="page_title_right"><a href="{{base_url('mobile-recharge-list')}}">充值记录</a></div>
+	</div>
+
+	<div class="input-group-box">
+		<div class="input-group clearfix">
+			<label>玩家ID</label>
+			<input type="text" placeholder="点击编辑">
+		</div>
+		<div class="input-group clearfix">
+			<label>确认玩家ID</label>
+			<input type="text" placeholder="点击编辑">
+		</div>
+		<div class="input-group clearfix">
+			<label>充值钻石数</label>
+			<input type="text" placeholder="点击编辑">
+		</div>
+	
+	</div>
+
+	<div class="btn">充 值</div>
+	<div class="font-tip">当前可用钻石数：<span>1000</span> 颗</div>
+</div>
+{% endblock %}

@@ -76,4 +76,8 @@ $route['proxy-status'] = "admin/Index/proxy_status";
 
 
 $route['mobile-login'] = "admin/MobileLogin/index";
+$route['mobile-index'] = "admin/MobileIndex/index";
+
+
+$route['mobile-player-recharge'] = "admin/MobileIndex/player_recharge";
 

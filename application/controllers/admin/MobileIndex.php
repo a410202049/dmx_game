@@ -1,16 +1,21 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-class Index extends admin_Auth_Controller {
+class MobileIndex extends admin_Auth_Controller {
 	public function __construct(){
 		parent::__construct();
 	}
 
 	public function index(){
-		// $this->twig->assign('page_num',12);
-		if($this->userInfo['type'] != 0){
-			redirect(base_url('/player-manage'));
-		}
-		$this->twig->render('Index/index');
+		// // $this->twig->assign('page_num',12);
+		// if($this->userInfo['type'] != 0){
+		// 	redirect(base_url('/player-manage'));
+		// }
+		$this->twig->render('MobileIndex/index');
+	}
+
+
+	public function player_recharge(){
+		$this->twig->render('MobileIndex/player_recharge');
 	}
 
 	public function player_manage(){
