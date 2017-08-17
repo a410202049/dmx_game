@@ -3,11 +3,11 @@
 {% block container %}
 <div class="wrapper" style="">
 	<div class="nav">
-		<a href="{{base_url('mobile-index')}}"><span class="arrow_left"></span></a>
 		<div class="page_title">
-			玩家充值
+			<a class="arrow" href="{{base_url('mobile-index')}}"><span class="arrow_left"></span></a>
+				<span>玩家充值</span>
+			<div class="page_title_right"><a href="{{base_url('mobile-recharge-list')}}">充值记录</a></div>
 		</div>
-		<div class="page_title_right"><a href="{{base_url('mobile-recharge-list')}}">充值记录</a></div>
 	</div>
 
 	<div class="input-group-box">

@@ -141,6 +141,12 @@ button{
 	background: #5ac7c6;
 	padding: 14px 20px;
 	position: relative;
+	text-align: center;
+}
+
+.nav .arrow{
+	position: absolute;
+	left: 20px;
 }
 
 
@@ -174,7 +180,7 @@ button{
 }
 
 .page_title{
-	text-align: center;
+	/*text-align: center;*/
 	font-size: 20px;
 	color: #d5ffff;
 	font-weight: bold;
@@ -240,6 +246,39 @@ button{
 	color: #ff2626;
 }
 
+.recharge-list .input-group-left{
+	float: left;
+}
+.recharge-list .input-group-right{
+	float: right;
+}
+
+.recharge-list .input-group-left span{
+	display: block;
+	font-weight: bold;
+}
+
+.recharge-list .input-group-left span i{
+	font-style:normal;
+}
+
+.recharge-list .input-group-left .proxy{
+	font-size: 18px;
+}
+
+.recharge-list .input-group-left .createtime{
+	font-size: 14px;
+}
+
+
+.input-group-right{
+	color: #5ac7c6;
+	font-size: 18px;
+	font-weight: bold;
+	margin-top: 6px;
+
+
+}
 /*.wrapper-box{
     display: none;
     position: fixed;

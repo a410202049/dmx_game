@@ -81,3 +81,4 @@ $route['mobile-index'] = "admin/MobileIndex/index";
 
 $route['mobile-player-recharge'] = "admin/MobileIndex/player_recharge";
 
+$route['mobile-recharge-list'] = "admin/MobileIndex/recharge_list";
