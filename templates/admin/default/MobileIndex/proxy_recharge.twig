@@ -5,19 +5,19 @@
 	<div class="nav">
 		<div class="page_title">
 			<a class="arrow" href="{{base_url('mobile-index')}}"><span class="arrow_left"></span></a>
-				<span>玩家充值</span>
-			<div class="page_title_right"><a href="{{base_url('mobile-recharge-list')}}">充值记录</a></div>
+				<span>代理商充值</span>
+			<div class="page_title_right"><a href="{{base_url('mobile-proxy-recharge-list')}}">充值记录</a></div>
 		</div>
 	</div>
 
 	<div class="input-group-box">
 		<div class="input-group clearfix">
-			<label>玩家ID</label>
-			<input type="text" placeholder="点击编辑" id="accid">
+			<label>代理商ID</label>
+			<input type="text" placeholder="点击编辑" id="proxy_id">
 		</div>
 		<div class="input-group clearfix">
-			<label>确认玩家ID</label>
-			<input type="text" placeholder="点击编辑" id="confirm_accid">
+			<label>确认代理商ID</label>
+			<input type="text" placeholder="点击编辑" id="confirm_proxy_id">
 		</div>
 		<div class="input-group clearfix">
 			<label>充值钻石数</label>
@@ -32,18 +32,18 @@
     {% endif %}
 </div>
 {% endblock %}
+
 {% block script %}
 	<script>
 	$(function(){
         $('.recharge').click(function(){
-            var accid =  $("#accid").val();
-            var confirm_accid =  $("#confirm_accid").val();
+            var proxy_id =  $("#proxy_id").val();
+            var confirm_proxy_id =  $("#confirm_proxy_id").val();
             var diamond =  $("#diamond").val();
-	
             $.ajax({
                 type: 'POST',
-                url: '/recharge',
-                data: {accid:accid,confirm_accid:confirm_accid,diamond:diamond},
+                url: '/proxy-recharge',
+                data: {proxy_id:proxy_id,confirm_proxy_id:confirm_proxy_id,diamond:diamond},
                 dataType: "json",
                     beforeSend: function(){
                         layer.open({type: 2,shade:'overflow: auto;'});

@@ -80,5 +80,12 @@ $route['mobile-index'] = "admin/MobileIndex/index";
 
 
 $route['mobile-player-recharge'] = "admin/MobileIndex/player_recharge";
-
 $route['mobile-recharge-list'] = "admin/MobileIndex/recharge_list";
+$route['mobile-proxy-recharge'] = "admin/MobileIndex/proxy_recharge";
+$route['mobile-proxy-recharge-list'] = "admin/MobileIndex/proxy_recharge_list";
+$route['mobile-proxy-manage-list'] = "admin/MobileIndex/proxy_manage_list";
+$route['mobile-account-manage'] = "admin/MobileIndex/account_manage";
+$route['mobile-add-proxy'] = "admin/MobileIndex/add_proxy";
+
+
+$route['mobile-logout'] = "admin/MobileLogin/logout";

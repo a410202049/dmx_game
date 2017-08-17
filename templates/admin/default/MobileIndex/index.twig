@@ -6,11 +6,31 @@
         <div class="mobile_font option_font ">请选择您想要的操作</div>
 
         <a href="{{base_url('mobile-player-recharge')}}" class="option_button">玩家充值</a>
-        <a href="#" class="option_button">下级代理商充值</a>
-        <a href="#" class="option_button">下级代理商管理</a>
-        <a href="#" class="option_button">账号管理</a>
+        <a href="{{base_url('mobile-proxy-recharge')}}" class="option_button">下级代理商充值</a>
+        <a href="{{base_url('mobile-proxy-manage-list')}}" class="option_button">下级代理商管理</a>
+        <a href="{{base_url('mobile-account-manage')}}" class="option_button">账号管理</a>
 
         <div class="mobile_font logout">账户注销</div>
     </div>
 </div>
+{% endblock %}
+
+{% block script %}
+	<script>
+	$(function(){
+		$('.logout').click(function(){
+			  //询问框
+			  layer.open({
+			    content: '您确定要退出登录吗？'
+			    ,btn: ['确定', '取消']
+			    ,yes: function(index){
+			      // location.reload();
+			      // alert('1');
+			      window.location.href = '/mobile-logout';
+			      // layer.close(index);
+			    }
+			  });
+		})
+	})
+	</script>
 {% endblock %}

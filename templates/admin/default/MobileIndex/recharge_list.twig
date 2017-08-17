@@ -20,141 +20,75 @@
 	</div>
 
 	<div class="input-group-box" style="padding-top:55px;">
-
-		<div class="input-group recharge-list clearfix">
-			<div class="input-group-left">
-				<span class="proxy">代理商ID：<i class="proxyid">admin12</i></span>
-				<span class="createtime">2015-05-08 11:25:03</span>
-			</div>
-			<div class="input-group-right">+1000</div>
-		</div>
-
-		<div class="input-group recharge-list clearfix">
-			<div class="input-group-left">
-				<span class="proxy">代理商ID：<i class="proxyid">admin12</i></span>
-				<span class="createtime">2015-05-08 11:25:03</span>
-			</div>
-			<div class="input-group-right">+1000</div>
-		</div>
-
-		<div class="input-group recharge-list clearfix">
-			<div class="input-group-left">
-				<span class="proxy">代理商ID：<i class="proxyid">admin12</i></span>
-				<span class="createtime">2015-05-08 11:25:03</span>
-			</div>
-			<div class="input-group-right">+1000</div>
-		</div>
-		<div class="input-group recharge-list clearfix">
-			<div class="input-group-left">
-				<span class="proxy">代理商ID：<i class="proxyid">admin12</i></span>
-				<span class="createtime">2015-05-08 11:25:03</span>
-			</div>
-			<div class="input-group-right">+1000</div>
-		</div>
-
-		<div class="input-group recharge-list clearfix">
-			<div class="input-group-left">
-				<span class="proxy">代理商ID：<i class="proxyid">admin12</i></span>
-				<span class="createtime">2015-05-08 11:25:03</span>
-			</div>
-			<div class="input-group-right">+1000</div>
-		</div>
-
-		<div class="input-group recharge-list clearfix">
-			<div class="input-group-left">
-				<span class="proxy">代理商ID：<i class="proxyid">admin12</i></span>
-				<span class="createtime">2015-05-08 11:25:03</span>
-			</div>
-			<div class="input-group-right">+1000</div>
-		</div>
-		<div class="input-group recharge-list clearfix">
-			<div class="input-group-left">
-				<span class="proxy">代理商ID：<i class="proxyid">admin12</i></span>
-				<span class="createtime">2015-05-08 11:25:03</span>
-			</div>
-			<div class="input-group-right">+1000</div>
-		</div>
-
-		<div class="input-group recharge-list clearfix">
-			<div class="input-group-left">
-				<span class="proxy">代理商ID：<i class="proxyid">admin12</i></span>
-				<span class="createtime">2015-05-08 11:25:03</span>
-			</div>
-			<div class="input-group-right">+1000</div>
-		</div>
-
-		<div class="input-group recharge-list clearfix">
-			<div class="input-group-left">
-				<span class="proxy">代理商ID：<i class="proxyid">admin12</i></span>
-				<span class="createtime">2015-05-08 11:25:03</span>
-			</div>
-			<div class="input-group-right">+1000</div>
-		</div>
-		<div class="input-group recharge-list clearfix">
-			<div class="input-group-left">
-				<span class="proxy">代理商ID：<i class="proxyid">admin12</i></span>
-				<span class="createtime">2015-05-08 11:25:03</span>
-			</div>
-			<div class="input-group-right">+1000</div>
-		</div>
-
-		<div class="input-group recharge-list clearfix">
-			<div class="input-group-left">
-				<span class="proxy">代理商ID：<i class="proxyid">admin12</i></span>
-				<span class="createtime">2015-05-08 11:25:03</span>
-			</div>
-			<div class="input-group-right">+1000</div>
-		</div>
-
-		<div class="input-group recharge-list clearfix">
-			<div class="input-group-left">
-				<span class="proxy">代理商ID：<i class="proxyid">admin12</i></span>
-				<span class="createtime">2015-05-08 11:25:03</span>
-			</div>
-			<div class="input-group-right">+1000</div>
-		</div>
-		<div class="input-group recharge-list clearfix">
-			<div class="input-group-left">
-				<span class="proxy">代理商ID：<i class="proxyid">admin12</i></span>
-				<span class="createtime">2015-05-08 11:25:03</span>
-			</div>
-			<div class="input-group-right">+1000</div>
-		</div>
-
-		<div class="input-group recharge-list clearfix">
-			<div class="input-group-left">
-				<span class="proxy">代理商ID：<i class="proxyid">admin12</i></span>
-				<span class="createtime">2015-05-08 11:25:03</span>
-			</div>
-			<div class="input-group-right">+1000</div>
-		</div>
-
-		<div class="input-group recharge-list clearfix">
-			<div class="input-group-left">
-				<span class="proxy">代理商ID：<i class="proxyid">admin12</i></span>
-				<span class="createtime">2015-05-08 11:25:03</span>
-			</div>
-			<div class="input-group-right">+1000</div>
-		</div>								
-
+							
 	</div>
+	<div class="page" style="display: none;">1</div>
 </div>
 {% endblock %}
 {% block script %}
 	<script type="text/javascript">
-	 	$(document).bind("scroll", function(event){
-		    if( $(document).scrollTop() >= $(document).height()-$(window).height() ){
-		            // layer.closeAll()
-		            // layer.open({type: 2,shade:'overflow: auto;'});
+       	function pageAjax(page){
+            $.ajax({
+                type: 'POST',
+                url: '/recharge-list/'+page,
+                data: {pagesize:12},
+                dataType: "json",
+                    beforeSend: function(){
+                        layer.open({type: 2,shade:'overflow: auto;'});
+                    },
+                    success: function(data){
+                    	layer.closeAll()
+                        if(data.status == 0){
+                        	console.log(data)
+                        	str = '';
+                            $.each(data.data.list, function(index,val) {
+                            	str+='<div class="input-group recharge-list clearfix">';
+                            	str+='<div class="input-group-left">';
+                            	str+='<span class="proxy">玩家ID：<i class="accountid">'+val.accid+'</i></span>';
+                            	str+='<span class="createtime">'+val.create_time+'</span>';
+                            	str+='</div><div class="input-group-right right-diamond">+'+val.diamond+'</div></div>';
+                            });
+                            if(data.data.list.length == 0){
+                            	  layer.open({
+								    content: '没有更多数据了...'
+								    ,skin: 'msg'
+								    ,time: 2 //2秒后自动关闭
+								  });
+                            }else{
+		                       	$('.input-group-box').append(str);
+	                        	page = $('.page').html();
+	                        	$('.page').html(parseInt(page)+1)
+                            }		
+     
+                        }
+                    }
+            });
+        }
 
-		              //提示
-					// layer.open({
-					// 	content: 'hello layer'
-					// 	,skin: 'msg'
-					// 	,time: 2 
-					// });
-		     }
-	 	});
+		$(function(){
+
+			pageAjax(1);
+		 	$(document).bind("scroll", function(event){
+			    if( $(document).scrollTop() >= $(document).height()-$(window).height() ){
+			    		page = $('.page').html();
+			    		pageAjax(page);
+			    		console.log(page);
+			            // layer.closeAll()
+			            // layer.open({type: 2,shade:'overflow: auto;'});
+
+			              //提示
+						// layer.open({
+						// 	content: 'hello layer'
+						// 	,skin: 'msg'
+						// 	,time: 2 
+						// });
+			     }
+		 	});
+
+
+
+		})
+
 
 	</script>
 

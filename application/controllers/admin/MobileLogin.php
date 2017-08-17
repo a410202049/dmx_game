@@ -67,7 +67,7 @@ class MobileLogin extends Base_Controller {
 	public function logout(){
 		$this->session->sess_destroy();
 		setcookie(AUTH_COOKIE_NAME, ' ', time() - 31536000, '/');
-	 	redirect(base_url('login'));
+	 	redirect(base_url('mobile-login'));
 	}
 
 

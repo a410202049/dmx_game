@@ -202,7 +202,7 @@ button{
 	float: right;
 	text-align: right;
 	border:none;
-	width: 70%;
+	width: 60%;
 	padding: 5px;
 	background: transparent;
 	font-size: 18px;
@@ -250,7 +250,10 @@ button{
 	float: left;
 }
 .recharge-list .input-group-right{
+	font-size: 18px;
+	color: #5ac7c6;
 	float: right;
+	font-weight: bold;
 }
 
 .recharge-list .input-group-left span{
@@ -271,13 +274,42 @@ button{
 }
 
 
-.input-group-right{
+
+.input-group-right .diamond{
+	display: block;
+	text-align: center;
+	font-size: 20px;
 	color: #5ac7c6;
-	font-size: 18px;
 	font-weight: bold;
-	margin-top: 6px;
+}
 
+.input-group-right .diamond_msg{
+	display: block;
+	font-size: 12px;
+	color: #262626;
+}
 
+.recharge-list .input-group-left .status{
+	padding: 2px 8px;
+	border-radius: 5px;
+	display: inline-block;
+	font-size: 14px;
+}
+
+.ft{
+	background: #f26522;
+	color: #fff;
+	margin-left: 10px;
+}
+
+.zc{
+	background: #69d0d1;
+	color: #fff;
+	margin-left: 10px;
+}
+
+.right-diamond{
+	margin-top: 10px;
 }
 /*.wrapper-box{
     display: none;

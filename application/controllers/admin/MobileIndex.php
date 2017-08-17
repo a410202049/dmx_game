@@ -18,6 +18,27 @@ class MobileIndex extends admin_Auth_Controller {
 		$this->twig->render('MobileIndex/recharge_list');
 	}
 
+	public function proxy_recharge(){
+		$this->twig->render('MobileIndex/proxy_recharge');
+	}
+
+	public function proxy_recharge_list(){
+		$this->twig->render('MobileIndex/proxy_recharge_list');
+	}
+
+
+	public function proxy_manage_list(){
+		$this->twig->render('MobileIndex/proxy_manage_list');
+	}
+
+	public function account_manage(){
+		$this->twig->render('MobileIndex/account_manage');
+	}
+
+	public function add_proxy(){
+		$this->twig->render('MobileIndex/add_proxy');
+	}
+
 	// public function player_manage(){
 	// 	$this->twig->render('Index/player_manage');
 	// }

@@ -12,11 +12,9 @@
             <div class="content-left">
                 <div class="menus">
                     <ul >
-                        {% if userInfo.type == 0 %}
-                            <li class="active"><a href="{{ base_url('/') }}">代理商充值</a></li>
-                        {% endif %}
+                        <li class="active"><a href="{{ base_url('/') }}">代理商充值</a></li>
                         <li><a href="{{ base_url('proxy-manage') }}">代理商管理</a></li>
-                        <li {% if userInfo.type == 1 %}class="active"{% endif %}><a href="{{ base_url('player-manage') }}">玩家充值</a></li>
+                        <li><a href="{{ base_url('player-manage') }}">玩家充值</a></li>
                         <li><a href="{{ base_url('account-manage') }}">账号管理</a></li>
                     </ul>
                 </div>

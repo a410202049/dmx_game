@@ -7,9 +7,9 @@ class Index extends admin_Auth_Controller {
 
 	public function index(){
 		// $this->twig->assign('page_num',12);
-		if($this->userInfo['type'] != 0){
-			redirect(base_url('/player-manage'));
-		}
+		// if($this->userInfo['type'] != 0){
+		// 	redirect(base_url('/player-manage'));
+		// }
 		$this->twig->render('Index/index');
 	}
 
@@ -124,7 +124,7 @@ class Index extends admin_Auth_Controller {
 		$sql = "select * from t_trade where ".$where;
 		$total_diamond_sql = "select sum(diamond) as total_diamond from t_trade where ".$where;
 		$total_diamond = $this->db->query($total_diamond_sql)->row_array();
-        $page['perpage'] = '10';
+        $page['perpage'] = $this->input->post('pagesize') ? $this->input->post('pagesize') : 10;
         $page['query'] = $sql;
         $page['seg'] = '2';
         $page['url'] = 'recharge-list';
@@ -137,12 +137,9 @@ class Index extends admin_Auth_Controller {
 
 
 	public function proxy_recharge(){
-		if($this->userInfo['type'] != 0){
-			$this->stdreturn->failed('1','你不是管理员');
-		}
+
 		$proxy_id = $this->input->post('proxy_id');
 		$confirm_proxy_id = $this->input->post('confirm_proxy_id');
-
 		$diamond = $this->input->post('diamond');
 		$max_diamond = $this->config->item('max_diamond');
 
@@ -164,16 +161,47 @@ class Index extends admin_Auth_Controller {
 			$this->stdreturn->failed('1','代理商不存在');
 		}
 
+		if($this->userInfo['type'] != 0){
+			if($diamond > $max_diamond){
+				$this->stdreturn->failed('1','钻石数量不能大于'.$max_diamond.'颗');
+			}
+			if($this->userInfo['diamond'] < $diamond){
+				$this->stdreturn->failed('1','钻石余额不足，请联系管理员充值');
+			}
 
-		$this->Account->proxy_recharge($proxy_id,$diamond);
+			$you_proxy = $this->db->get_where('dealer',array('id'=>$proxy_id,'type'=>1,'pid'=>$this->userInfo['id']))->row_array();
+			if(!$you_proxy){
+				$this->stdreturn->failed('1','您的账户下没有该代理商！');
+			}
 
-		//插入充值记录
-		$data = array(
-			"proxy_id"=>$proxy_id,
-			"diamond"=>$diamond,
-			"dealer_id"=>$this->userInfo['id']
-		);
-		$this->Data->add($data,'proxy');
+			try {
+				$this->Account->diamond_debit($this->userInfo['id'],$diamond);
+				$this->Account->proxy_recharge($proxy_id,$diamond);
+	
+				$data = array(
+					"proxy_id"=>$proxy_id,
+					"diamond"=>$diamond,
+					"dealer_id"=>$this->userInfo['id']
+				);
+				$this->Data->add($data,'proxy');
+				
+			} catch (Exception $e) {
+				$this->stdreturn->failed('1','充值失败');
+			}
+
+		}else{
+			$this->Account->proxy_recharge($proxy_id,$diamond);
+			//插入充值记录
+			$data = array(
+				"proxy_id"=>$proxy_id,
+				"diamond"=>$diamond,
+				"dealer_id"=>$this->userInfo['id']
+			);
+			$this->Data->add($data,'proxy');
+
+		}
+
+
 		$this->stdreturn->ok();
 
 	}
@@ -185,11 +213,9 @@ class Index extends admin_Auth_Controller {
 		$where = "";
 		if($this->userInfo['type'] == 0){
 			$where.= '1=1';
+		}else{
+			$where.= 'dealer_id="'.$this->userInfo['id'].'"';
 		}
-
-		// else{
-		// 	$where.= 'dealer_id = '.$this->userInfo['id'];
-		// }
 
 		if($starttime && $endtime ){
 			$where.= " and create_time BETWEEN '".$starttime." 00:00:00' AND '".$endtime." 23:59:59'" ; 
@@ -200,7 +226,7 @@ class Index extends admin_Auth_Controller {
 		$total_diamond_sql = "select sum(diamond) as total_diamond from t_proxy where ".$where;
 		$total_diamond = $this->db->query($total_diamond_sql)->row_array();
 
-        $page['perpage'] = '10';
+        $page['perpage'] = $this->input->post('pagesize') ? $this->input->post('pagesize') : 10;
         $page['query'] = $sql;
         $page['seg'] = '2';
         $page['url'] = 'recharge-list';
@@ -290,7 +316,7 @@ class Index extends admin_Auth_Controller {
 
 
 		// echo $sql;exit;
-        $page['perpage'] = '10';
+        $page['perpage'] = $this->input->post('pagesize') ? $this->input->post('pagesize') : 10;
         $page['query'] = $sql;
         $page['seg'] = '2';
         $page['url'] = 'recharge-list';
