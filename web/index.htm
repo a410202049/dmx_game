@@ -1,0 +1,164 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=GBK" />
+<title>身份证阅读器</title>
+
+<style type="text/css">
+td.title1{
+    width:15%;text-align:center;
+}
+td.textbox1{
+    width:35%;text-align:left;
+}
+</style>
+<script language="javascript" type="text/javascript">
+function byId(id)
+{
+	return document.getElementById(id);
+}
+
+var isInit=false;
+
+function readCard()
+{
+	var obj = byId("CardReader1");
+	var form1=byId("formCard");
+	if(false==isInit)
+	{
+//设置端口号，1表示串口1，2表示串口2，依此类推；1001表示USB。0表示自动选择
+		obj.setPortNum(0);
+		isInit=true;
+	}
+//使用重复读卡功能
+	obj.Flag=0;
+	//obj.BaudRate=115200;
+//设置照片保存路径，照片文件名：(身份证号).bmp。默认路径为系统临时目录,照片文件名：image.bmp
+	obj.PhotoPath=form1.photoPath.value;	
+//读卡
+	var rst = obj.ReadCard();
+//获取各项信息
+    if(0x90==rst)
+    {
+	    form1.nameL.value   =obj.NameL();
+	    form1.sexL.value    =obj.SexL();
+	    form1.nationL.value =obj.NationL();
+	    form1.bornL.value   =obj.BornL();
+	    form1.address.value =obj.Address();
+	    form1.idnum.value   =obj.CardNo();;
+	    form1.agent.value   =obj.Police();
+	    form1.validDateL.value=obj.ActivityL();
+
+	    form1.name2.value       =obj.Name();
+	    form1.sexCode.value     =obj.Sex();
+	    form1.nationCode.value  =obj.Nation();
+	    form1.born2.value       =obj.Born();
+	    form1.validDate2.value  =obj.Activity();
+	    form1.validDateFrom.value=obj.ActivityLFrom;
+	    form1.validDateTo.value =obj.ActivityLTo;
+    	
+	    form1.base64Image.value =obj.GetImage();
+	}
+	else
+	{
+	    form1.nameL.value   ="";
+	    form1.sexL.value    ="";
+	    form1.nationL.value ="";
+	    form1.bornL.value   ="";
+	    form1.address.value ="";
+	    form1.idnum.value   ="";
+	    form1.agent.value   ="";
+	    form1.validDateL.value="";
+
+	    form1.name2.value       ="";
+	    form1.sexCode.value     ="";
+	    form1.nationCode.value  ="";
+	    form1.born2.value       ="";
+	    form1.validDate2.value  ="";
+	    form1.validDateFrom.value="";
+	    form1.validDateTo.value ="";
+    	
+	    form1.base64Image.value ="";
+	}
+}
+
+function GetState()
+{
+	var obj = byId("CardReader1");
+	obj.GetState();
+}
+</script>
+</head>
+
+<body>
+<object id="CardReader1" codebase="FirstActivex.cab#version=1,3,1,1" classid="CLSID:F225795B-A882-4FBA-934C-805E1B2FBD1B" 
+	width="102" height="126">
+	<param name="_Version" value="65536"/>
+	<param name="_ExtentX" value="2646"/>
+	<param name="_ExtentY" value="1323"/>
+	<param name="_StockProps" value="0"/>
+	</object>
+
+<form id="formCard">
+<table border="0" width="100%">
+<tr>
+<td class="title1">姓名:</td>
+<td class="textbox1"><input type="text" size="20" name="nameL" /></td>
+<td class="title1">姓名2:</td>
+<td class="textbox1"><input type="text" size="20" name="name2" /></td>
+</tr>
+<tr>
+<td class="title1">性别:</td>
+<td class="textbox1"><input type="text" size="20" name="sexL" /></td>
+<td class="title1">性别代码:</td>
+<td class="textbox1"><input type="text" size="20" name="sexCode" /></td>
+</tr>
+<tr>
+<td class="title1">民族:</td>
+<td class="textbox1"><input type="text" size="20" name="nationL" /></td>
+<td class="title1">民族代码:</td>
+<td class="textbox1"><input type="text" size="20" name="nationCode" /></td>
+</tr>
+<tr>
+<td class="title1">出生日期:</td>
+<td class="textbox1"><input type="text" size="20" name="bornL" /></td>
+<td class="title1">生日2:</td>
+<td class="textbox1"><input type="text" size="20" name="born2" /></td>
+</tr>
+<tr>
+<td class="title1">地址:</td>
+<td class="textbox1"><input type="text" size="40" name="address" /></td>
+<td class="title1">有效期2:</td>
+<td class="textbox1"><input type="text" size="20" name="validDate2" /></td>
+</tr>
+<tr>
+<td class="title1">身份证号码:</td>
+<td class="textbox1"><input type="text" size="20" name="idnum" /></td>
+<td class="title1">起始有效期:</td>
+<td class="textbox1"><input type="text" size="20" name="validDateFrom" /></td>
+</tr>
+<tr>
+<td class="title1">签发机构:</td>
+<td class="textbox1"><input type="text" size="30" name="agent" /></td>
+<td class="title1">终止有效期:</td>
+<td class="textbox1"><input type="text" size="20" name="validDateTo" /></td>
+</tr>
+<tr>
+<td class="title1">有效日期:</td>
+<td class="textbox1"><input type="text" size="30" name="validDateL" /></td>
+<td class="title1"></td>
+<td class="textbox1"></td>
+</tr>
+<tr>
+<td class="title1">照片保存路径:</td>
+<td class="textbox1"><input type="text" size="30" name="photoPath" /></td>
+<td class="title1"></td>
+<td class="textbox1"></td>
+</tr>
+</table>
+  <textarea rows="6" cols="100" name="base64Image" ></textarea><br />
+  <input id="button1" type="button" value="读取身份证信息" name="btnRead" onclick="readCard()" />
+  <input id="button2" type="reset" value="重置" name="btnReset" />
+  <input id="button3" type="button" value="状态" name="btnState" onclick="GetState()" />
+</form>
+</body>
+</html>

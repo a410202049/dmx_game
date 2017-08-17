@@ -140,3 +140,23 @@
 	</div>
 </div>
 {% endblock %}
+{% block script %}
+	<script type="text/javascript">
+	 	$(document).bind("scroll", function(event){
+		    if( $(document).scrollTop() >= $(document).height()-$(window).height() ){
+		            // layer.closeAll()
+		            // layer.open({type: 2,shade:'overflow: auto;'});
+
+		              //提示
+					// layer.open({
+					// 	content: 'hello layer'
+					// 	,skin: 'msg'
+					// 	,time: 2 
+					// });
+		     }
+	 	});
+
+	</script>
+
+{% endblock %}
+
