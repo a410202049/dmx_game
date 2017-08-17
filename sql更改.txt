@@ -1,4 +1,4 @@
-http://114.55.8.96:9082
+﻿http://114.55.8.96:9082
 http://114.55.8.96:9083
 
 order_by(FreeTuition.create_time.desc())
@@ -14,9 +14,12 @@ celery -A local.celery worker -c 100 -P gevent
 ALTER TABLE `t_dealer`
 ADD COLUMN `pid`  varchar(20) NULL DEFAULT 0 AFTER `type`;
 
-
 ALTER TABLE `t_dealer`
 ADD COLUMN `status`  int NULL DEFAULT 1 COMMENT '״̬' AFTER `pid`;
 
+ALTER TABLE `t_dealer`
+ADD COLUMN `leve`  int(11) NULL DEFAULT 0 AFTER `diamond`;
 
+
+UPDATE t_dealer set leve = 1 where type !=0;
 

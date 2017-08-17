@@ -14,87 +14,99 @@
 <div class="wrapper"> 
 	<div class="nav">
 		<div class="page_title">
-			<a class="arrow" href="{{base_url('mobile-proxy-recharge')}}"><span class="arrow_left"></span></a>
+			<a class="arrow" href="{{base_url('mobile-index')}}"><span class="arrow_left"></span></a>
 			<span>代理商列表</span>
+			<div class="page_title_right add_proxy"><a href="{{base_url('mobile-add-proxy')}}">+</a></div>
 		</div>
 	</div>
 
 	<div class="input-group-box" style="padding-top:55px;">
-
-		<div class="input-group recharge-list clearfix">
-			<div class="input-group-left">
-				<span class="proxy">代理商ID：<i class="proxyid">admin12</i><span class="status ft">封停</span></span>
-				<span class="createtime">2015-05-08 11:25:03</span>
-			</div>
-			<div class="input-group-right"><span class="diamond">+1000</span><span class="diamond_msg">累计销售钻石数</span></div>
-		</div>
-
-
-		<div class="input-group recharge-list clearfix">
-			<div class="input-group-left">
-				<span class="proxy">代理商ID：<i class="proxyid">admin12</i><span class="status zc">封停</span></span>
-				<span class="createtime">2015-05-08 11:25:03</span>
-			</div>
-			<div class="input-group-right"><span class="diamond">+1000</span><span class="diamond_msg">累计销售钻石数</span></div>
-		</div>
-
-
-		<div class="input-group recharge-list clearfix">
-			<div class="input-group-left">
-				<span class="proxy">代理商ID：<i class="proxyid">admin12</i><span class="status ft">封停</span></span>
-				<span class="createtime">2015-05-08 11:25:03</span>
-			</div>
-			<div class="input-group-right"><span class="diamond">+1000</span><span class="diamond_msg">累计销售钻石数</span></div>
-		</div>
-
-
-		<div class="input-group recharge-list clearfix">
-			<div class="input-group-left">
-				<span class="proxy">代理商ID：<i class="proxyid">admin12</i><span class="status zc">封停</span></span>
-				<span class="createtime">2015-05-08 11:25:03</span>
-			</div>
-			<div class="input-group-right"><span class="diamond">+1000</span><span class="diamond_msg">累计销售钻石数</span></div>
-		</div>
-
-		<div class="input-group recharge-list clearfix">
-			<div class="input-group-left">
-				<span class="proxy">代理商ID：<i class="proxyid">admin12</i><span class="status ft">封停</span></span>
-				<span class="createtime">2015-05-08 11:25:03</span>
-			</div>
-			<div class="input-group-right"><span class="diamond">+1000</span><span class="diamond_msg">累计销售钻石数</span></div>
-		</div>
-
-
-		<div class="input-group recharge-list clearfix">
-			<div class="input-group-left">
-				<span class="proxy">代理商ID：<i class="proxyid">admin12</i><span class="status zc">封停</span></span>
-				<span class="createtime">2015-05-08 11:25:03</span>
-			</div>
-			<div class="input-group-right"><span class="diamond">+1000</span><span class="diamond_msg">累计销售钻石数</span></div>
-		</div>
-
-							
+						
 
 	</div>
+	<div class="page" style="display: none;">1</div>
 </div>
 {% endblock %}
+
+
 {% block script %}
 	<script type="text/javascript">
-	 	$(document).bind("scroll", function(event){
-		    if( $(document).scrollTop() >= $(document).height()-$(window).height() ){
-		            // layer.closeAll()
-		            // layer.open({type: 2,shade:'overflow: auto;'});
 
-		              //提示
-					// layer.open({
-					// 	content: 'hello layer'
-					// 	,skin: 'msg'
-					// 	,time: 2 
-					// });
-		     }
-	 	});
+
+
+       	function pageAjax(page){
+            $.ajax({
+                type: 'POST',
+                url: '/proxy-list/'+page,
+                data: {pagesize:12},
+                dataType: "json",
+                    beforeSend: function(){
+                        layer.open({type: 2,shade:'overflow: auto;'});
+                    },
+                    success: function(data){
+                    	layer.closeAll()
+                        if(data.status == 0){
+                        	console.log(data)
+                        	str = '';
+                            $.each(data.data.list, function(index,val) {
+                            	str+='<div class="input-group recharge-list clearfix">';
+                            	str+='<div class="input-group-left">';
+                            	str+='<span class="proxy">代理商ID：<i class="proxyid">'+val.id+'</i>';
+                                    if(val.status == '1'){
+                                        str +='<span class="status zc">正常</span>'
+                                    }else{
+                                        str +='<span class="status ft">封停</span>'
+                                    }
+
+                            	str+='</span>';
+                            	str+='<span class="createtime">'+val.create_time+'</span>';
+                            	str+='</div><div class="input-group-right"><span class="diamond">+'+val.total_diamond+'</span><span class="diamond_msg">累计销售钻石数</span></div></div>';
+                            	// +'+val.diamond+'
+                            });
+                            if(data.data.list.length == 0){
+                            	  layer.open({
+								    content: '没有更多数据了...'
+								    ,skin: 'msg'
+								    ,time: 2 //2秒后自动关闭
+								  });
+                            }else{
+		                       	$('.input-group-box').append(str);
+	                        	page = $('.page').html();
+	                        	$('.page').html(parseInt(page)+1)
+                            }		
+     
+                        }
+                    }
+            });
+        }
+
+		$(function(){
+
+			pageAjax(1);
+		 	$(document).bind("scroll", function(event){
+			    if( $(document).scrollTop() >= $(document).height()-$(window).height() ){
+			    		page = $('.page').html();
+			    		pageAjax(page);
+			    		console.log(page);
+			     }
+		 	});
+
+		 	$(document).on('click','.input-group',function(){
+		 		var proxyid = $(this).find('.proxyid').html();
+		 		window.location.href = '/mobile-proxy-detail?proxy_id='+proxyid;
+		 	})
+		 	// $('.input-group').click(function(){
+		 	// 	console.log(this);
+		 	// })
+
+		})
+
 
 	</script>
 
 {% endblock %}
+
+
+
+
 

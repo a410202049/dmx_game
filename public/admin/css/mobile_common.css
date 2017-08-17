@@ -311,6 +311,16 @@ button{
 .right-diamond{
 	margin-top: 10px;
 }
+
+.add_proxy{
+	top: 8px;
+}
+.add_proxy a{
+	font-size: 30px;
+	font-weight: bold;
+	text-decoration: none;
+
+}
 /*.wrapper-box{
     display: none;
     position: fixed;

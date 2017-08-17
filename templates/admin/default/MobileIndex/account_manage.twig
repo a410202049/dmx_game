@@ -12,20 +12,66 @@
 	<div class="input-group-box">
 		<div class="input-group clearfix">
 			<label>原密码</label>
-			<input type="text" placeholder="点击编辑">
+			<input type="password" placeholder="点击编辑" id="oldpasswd">
 		</div>
 		<div class="input-group clearfix">
 			<label>新密码</label>
-			<input type="text" placeholder="点击编辑">
+			<input type="password" placeholder="点击编辑" id="newpasswd">
 		</div>
 		<div class="input-group clearfix">
 			<label>确认密码</label>
-			<input type="text" placeholder="点击编辑">
+			<input type="password" placeholder="点击编辑" id="confpasswd">
 		</div>
 	
 	</div>
 
-	<div class="btn">充 值</div>
-	<div class="font-tip">当前可用钻石数：<span>1000</span> 颗</div>
+	<div class="btn modify">修 改</div>
+    {% if userInfo.type != 0 %}
+		<div class="font-tip">当前可用钻石数：<span>{{ userInfo.diamond }}</span> 颗</div>
+    {% endif %}
 </div>
+{% endblock %}
+
+{% block script %}
+	<script>
+	$(function(){
+
+		$('.modify').click(function(){
+            var oldpasswd =  $("#oldpasswd").val();
+            var newpasswd =  $("#newpasswd").val();
+            var confpasswd =  $("#confpasswd").val();
+            $.ajax({
+                type: 'POST',
+                url: '/modify-passwd',
+                data: {oldpasswd:oldpasswd,newpasswd:newpasswd,confpasswd:confpasswd},
+                dataType: "json",
+                    beforeSend: function(){
+                        layer.open({type: 2,shade:'overflow: auto;'});
+                     // Handle the beforeSend event
+                    },
+                    success: function(data){
+                        layer.closeAll()
+                        if(data.status == 0){
+
+							layer.open({
+							    content: '修改成功'
+							    ,btn: '确定',
+							    yes:function(){
+                            		location.reload()
+							    }
+							});
+
+                        }else{
+							layer.open({
+							    content: data.msg
+							    ,btn: '确定'
+							});
+                        }
+                    }
+            });
+		});
+
+
+	})
+	</script>
 {% endblock %}

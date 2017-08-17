@@ -86,6 +86,5 @@ $route['mobile-proxy-recharge-list'] = "admin/MobileIndex/proxy_recharge_list";
 $route['mobile-proxy-manage-list'] = "admin/MobileIndex/proxy_manage_list";
 $route['mobile-account-manage'] = "admin/MobileIndex/account_manage";
 $route['mobile-add-proxy'] = "admin/MobileIndex/add_proxy";
-
-
 $route['mobile-logout'] = "admin/MobileLogin/logout";
+$route['mobile-proxy-detail'] = "admin/MobileIndex/proxy_detail";

@@ -283,11 +283,15 @@ class Index extends admin_Auth_Controller {
 			$this->stdreturn->failed('1','该账号已存在');
 		}
 
+		if(($this->userInfo['leve'] + 1) > 10){
+			$this->stdreturn->failed('1','代理商层级不能超过10');
+		}
 		$data = array(
 			"id"=>$proxyid,
 			"passwd"=>do_hash($passwd),
 			"type"=>1,
-			"pid"=>$this->uid
+			"pid"=>$this->uid,
+			"leve"=>$this->userInfo['leve'] + 1
 		);
 
 		$this->Data->add($data,'dealer');
