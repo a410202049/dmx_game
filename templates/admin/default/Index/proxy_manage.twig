@@ -28,13 +28,15 @@
                 </div>
 
                     <div id="menu_con">
-                        <div class="tag" style="display:block">
+                        <div class="tag" style="display:block;position:relative;">
                             <div class="input-group">
                                 <span><label>代理商ID：</label><input type="text" name="proxyid" placeholder="请输入代理商ID" id="proxyid"></span>
                                 <span><label>确认代理商ID：</label><input type="text" name="confirm_proxyid" placeholder="确认代理商ID" id="confirm_proxyid"></span>
                                 <button class="add_proxy">创 建</button>
+
                                 <span class="message-tip">{{error_flashdata}}</span>
                             </div>
+                            <div class="font-tip" style="position: absolute;font-size:12px;margin:auto;top:136px;left:56px;">注：代理商账号创建后的初始密码为<span style="color:red;">12345678</span>，请联系代理商尽快修改密码。 </div>
                         </div> 
                         <div class="tag" style="display:none">
                             <div class="layui-form-pane" style="margin-top: 15px;margin-left: 115px;">

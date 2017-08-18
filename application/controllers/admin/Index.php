@@ -20,20 +20,20 @@ class Index extends admin_Auth_Controller {
 
 	public function account_manage(){
 		$total_diamond = 0;
-		if($this->userInfo['type'] == '0'){
-			$proxy_total_diamond_sql = "select sum(diamond) as total_diamond from t_proxy where dealer_id = '".$this->userInfo['id']."'";
-			$proxy_total_diamond = $this->db->query($proxy_total_diamond_sql)->row_array();
-			
-			$account_total_diamond_sql = "select sum(diamond) as total_diamond from t_trade where dealer_id = '".$this->userInfo['id']."'";
-			$account_total_diamond = $this->db->query($account_total_diamond_sql)->row_array();
+		// if($this->userInfo['type'] == '0'){
+		$proxy_total_diamond_sql = "select sum(diamond) as total_diamond from t_proxy where dealer_id = '".$this->userInfo['id']."'";
+		$proxy_total_diamond = $this->db->query($proxy_total_diamond_sql)->row_array();
+		
+		$account_total_diamond_sql = "select sum(diamond) as total_diamond from t_trade where dealer_id = '".$this->userInfo['id']."'";
+		$account_total_diamond = $this->db->query($account_total_diamond_sql)->row_array();
 
-			$total_diamond = $proxy_total_diamond['total_diamond'] + $account_total_diamond['total_diamond'];
+		$total_diamond = $proxy_total_diamond['total_diamond'] + $account_total_diamond['total_diamond'];
 
-		}else{
-			$account_total_diamond_sql = "select sum(diamond) as total_diamond from t_trade where dealer_id = '".$this->userInfo['id']."'";
-			$account_total_diamond = $this->db->query($account_total_diamond_sql)->row_array();
-			$total_diamond = $account_total_diamond['total_diamond'];
-		}
+		// }else{
+		// 	$account_total_diamond_sql = "select sum(diamond) as total_diamond from t_trade where dealer_id = '".$this->userInfo['id']."'";
+		// 	$account_total_diamond = $this->db->query($account_total_diamond_sql)->row_array();
+		// 	$total_diamond = $account_total_diamond['total_diamond'];
+		// }
 		$total_diamond = $total_diamond ? $total_diamond : 0;
 		$this->twig->assign('total_diamond',$total_diamond);
 		$this->twig->render('Index/account_manage');
@@ -270,7 +270,7 @@ class Index extends admin_Auth_Controller {
 	public function add_proxy(){
 		$proxyid = $this->input->post('proxyid');
 		$confirm_proxyid = $this->input->post('confirm_proxyid');
-		$passwd = '123456';
+		$passwd = '12345678';
 
 		$proxy_data = $this->db->get_where('dealer',array('id'=>$proxyid))->row_array();
 		if(!$proxyid){
@@ -314,9 +314,10 @@ class Index extends admin_Auth_Controller {
 		if($starttime && $endtime ){
 			$where.= " and d.create_time BETWEEN '".$starttime." 00:00:00' AND '".$endtime." 23:59:59'" ; 
 		}
-		$where.=" GROUP BY d.id";
-		$where.=" order by create_time desc";
-		$sql = "SELECT d.id,d.status,d.create_time, case when sum(p.diamond) is null then 0 else sum(p.diamond) end as total_diamond  from t_dealer as d LEFT JOIN t_proxy as p on d.id = p.proxy_id where ".$where;
+		$where.=" order by d.create_time desc";
+		$sql = "SELECT d.id,d.status,d.create_time from t_dealer as d where ".$where;
+
+		// echo $sql;exit;
 
 
 		// echo $sql;exit;
@@ -325,6 +326,18 @@ class Index extends admin_Auth_Controller {
         $page['seg'] = '2';
         $page['url'] = 'recharge-list';
         $record = $this->page($page);
+        // total_diamond
+        foreach ($record as $key => $value) {
+			$proxy_total_diamond_sql = "select sum(diamond) as total_diamond from t_proxy where dealer_id = '".$value['id']."'";
+			$proxy_total_diamond = $this->db->query($proxy_total_diamond_sql)->row_array();
+			
+			$account_total_diamond_sql = "select sum(diamond) as total_diamond from t_trade where dealer_id = '".$value['id']."'";
+			$account_total_diamond = $this->db->query($account_total_diamond_sql)->row_array();
+
+			$total_diamond = $proxy_total_diamond['total_diamond'] + $account_total_diamond['total_diamond'];
+			$record[$key]['total_diamond'] = $total_diamond;
+        }
+
         $arr['list'] = $record;
         $arr['total'] = $this->pager->total;
         // $arr['total_diamond'] = $total_diamond['total_diamond'];

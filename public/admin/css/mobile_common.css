@@ -8,6 +8,11 @@ img{border:0;vertical-align:middle}
 table{border-collapse:collapse;border-spacing:0} 
 p{word-wrap:break-word}
 
+input{
+	outline: none
+	-webkit-appearance: none; -moz-appearance: none; appearance: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); 
+}
+
 .clearfix:after {
   content: "\0020";
   display: block;
@@ -67,6 +72,7 @@ p{word-wrap:break-word}
 	border-bottom:1px solid #d5ffff;
 	margin-bottom: 15px;
 	font-size: 16px;
+	color: #d5ffff;
 
 }
 
@@ -125,11 +131,12 @@ button{
 }
 
 .option_button{
-	width: 100%;
+	width: 90%;
+	margin:auto;
 	background: #5ac7c6;
 	border-radius: 5px;
 	text-align: center;
-	padding: 20px 0;
+	padding: 10px 0;
 	display: block;
 	color: #fff;
 	font-size: 16px;
@@ -258,7 +265,7 @@ button{
 
 .recharge-list .input-group-left span{
 	display: block;
-	font-weight: bold;
+	/*font-weight: bold;*/
 }
 
 .recharge-list .input-group-left span i{

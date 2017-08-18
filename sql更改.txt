@@ -15,7 +15,7 @@ ALTER TABLE `t_dealer`
 ADD COLUMN `pid`  varchar(20) NULL DEFAULT 0 AFTER `type`;
 
 ALTER TABLE `t_dealer`
-ADD COLUMN `status`  int NULL DEFAULT 1 COMMENT '״̬' AFTER `pid`;
+ADD COLUMN `status`  int NULL DEFAULT 1  AFTER `pid`;
 
 ALTER TABLE `t_dealer`
 ADD COLUMN `leve`  int(11) NULL DEFAULT 0 AFTER `diamond`;
