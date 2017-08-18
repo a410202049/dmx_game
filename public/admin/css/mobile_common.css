@@ -344,6 +344,10 @@ button{
 .btn_ft{
 	background: #f56d5e;
 }
+
+.logout{
+	font-size: 16px;
+}
 /*.wrapper-box{
     display: none;
     position: fixed;

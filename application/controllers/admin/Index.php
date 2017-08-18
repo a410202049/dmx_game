@@ -10,6 +10,12 @@ class Index extends admin_Auth_Controller {
 		// if($this->userInfo['type'] != 0){
 		// 	redirect(base_url('/player-manage'));
 		// }
+		$this->load->library('user_agent');
+		if ($this->agent->is_mobile())
+		{
+		   redirect(base_url('mobile-login'));
+		}
+		
 		$this->twig->render('Index/index');
 	}
 
