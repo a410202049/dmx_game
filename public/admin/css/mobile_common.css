@@ -9,7 +9,7 @@ table{border-collapse:collapse;border-spacing:0}
 p{word-wrap:break-word}
 
 input{
-	outline: none
+	outline: none;
 	-webkit-appearance: none; -moz-appearance: none; appearance: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); 
 }
 
