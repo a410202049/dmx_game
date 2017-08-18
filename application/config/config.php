@@ -24,7 +24,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |
 */
 // $config['base_url'] = 'http://www.dmx.com';
-$config['base_url'] = 'http://192.168.1.102:8089';
+$config['base_url'] = 'http://192.168.0.98:8089';
 
 
 

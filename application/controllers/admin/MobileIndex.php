@@ -45,7 +45,29 @@ class MobileIndex extends admin_Auth_Controller {
 		if(!$proxy_id){
 			$this->stdreturn->failed('1','代理商id不能为空');
 		}
-		$this->twig->render('MobileIndex/add_proxy');
+		$proxy_data = '';
+		if($this->userInfo['type'] == '0'){
+			$proxy_data = $this->db->get_where('dealer',array('id'=>$proxy_id))->row_array();
+		}else{
+			$proxy_data = $this->db->get_where('dealer',array('id'=>$proxy_id,'pid'=>$this->userInfo['id']))->row_array();
+		}
+		if(!$proxy_data){
+			$this->stdreturn->failed('1','代理商不存在');
+		}
+		$leves = array('一','二','三','四','五','六','七','八','九','十'); 
+		$proxy_data['leve'] = $leves[$proxy_data['leve']-1];
+
+		$proxy_total_diamond_sql = "select sum(diamond) as total_diamond from t_proxy where dealer_id = '".$proxy_data['id']."'";
+		$proxy_total_diamond = $this->db->query($proxy_total_diamond_sql)->row_array();
+		
+		$account_total_diamond_sql = "select sum(diamond) as total_diamond from t_trade where dealer_id = '".$proxy_data['id']."'";
+		$account_total_diamond = $this->db->query($account_total_diamond_sql)->row_array();
+
+		$total_diamond = $proxy_total_diamond['total_diamond'] + $account_total_diamond['total_diamond'];
+
+		$proxy_data['total_diamond'] = $total_diamond;
+		$this->twig->assign('proxy_data',$proxy_data);
+		$this->twig->render('MobileIndex/proxy_detail');
 	}
 
 }

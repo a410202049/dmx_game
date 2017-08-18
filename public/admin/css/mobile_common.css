@@ -321,6 +321,22 @@ button{
 	text-decoration: none;
 
 }
+
+.proxy_info{
+	width: 90%;
+	margin:auto;
+}
+
+.proxy_info span{
+	display: block;
+	margin-top: 20px;
+	color: #262626;
+	font-size: 18px;
+}
+
+.btn_ft{
+	background: #f56d5e;
+}
 /*.wrapper-box{
     display: none;
     position: fixed;

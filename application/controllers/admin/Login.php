@@ -15,8 +15,14 @@ class Login extends Base_Controller {
     }
     
 	public function index() {
+		$this->load->library('user_agent');
+		if ($this->agent->is_mobile())
+		{
+		   redirect(base_url('mobile-login'));
+		}
+
          if($this->loginauth->isLogin()){
-             redirect(base_url('/'));
+            redirect(base_url('/'));
          }
         
     	$this->twig->render(

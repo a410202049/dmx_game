@@ -5,23 +5,23 @@
 	<div class="nav">
 		<div class="page_title">
 			<a class="arrow" href="{{base_url('mobile-proxy-manage-list')}}"><span class="arrow_left"></span></a>
-				<span>添加代理商</span>
+				<span>管理代理商</span>
 		</div>
 	</div>
+	<div class="proxy_info">
+		<span>代理商信息</span>
+		<span>账户名：{{proxy_data['id']}}</span>
+		<span>创建时间：{{proxy_data['create_time']}}</span>
+		<span>代理商等级：{{proxy_data['leve']}}级</span>
+		<span>累计销售钻石数：{{proxy_data['total_diamond']}}颗</span>
+		<span>状态：{% if proxy_data.status == 1 %}正常{% else %}封停{% endif %}</span>
 
-	<div class="input-group-box">
-		<div class="input-group clearfix">
-			<label>代理商ID</label>
-			<input type="text" placeholder="点击编辑" id="proxyid">
-		</div>
-		<div class="input-group clearfix">
-			<label>确认代理商ID</label>
-			<input type="text" placeholder="点击编辑" id="confirm_proxyid">
-		</div>
 	</div>
 
-	<div class="btn add_proxy">添 加</div>
-	<div class="font-tip" style="width:90%;text-align:left;font-size:12px;margin:auto;margin-top:50px;">注：代理商账号创建后的初始密码为<span>12345678</span>，请联系代理商尽快修改密码。 </div>
+
+	{% if proxy_data.status == 1 %}<div class="btn btn_ft">封停账号</div>{% else %}<div class="btn">恢复正常</div>{% endif %}
+	
+
 </div>
 {% endblock %}
 
@@ -29,13 +29,12 @@
 	<script>
 	$(function(){
 
-		$('.add_proxy').click(function(){
-            var proxyid =  $("#proxyid").val();
-            var confirm_proxyid =  $("#confirm_proxyid").val();
+		$('.btn').click(function(){
+            var proxyid =  "{{proxy_data['id']}}";
             $.ajax({
                 type: 'POST',
-                url: '/add-proxy',
-                data: {proxyid:proxyid,confirm_proxyid:confirm_proxyid},
+                url: '/proxy-status',
+                data: {proxyid:proxyid},
                 dataType: "json",
                     beforeSend: function(){
                         layer.open({type: 2,shade:'overflow: auto;'});
@@ -46,7 +45,7 @@
                         if(data.status == 0){
 
 							layer.open({
-							    content: '添加成功'
+							    content: '修改成功'
 							    ,btn: '确定',
 							    yes:function(){
                             		location.reload()
